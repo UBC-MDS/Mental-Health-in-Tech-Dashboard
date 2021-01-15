@@ -1,9 +1,9 @@
 ---
 title: "Proposal"
-author: "Chirag Patel, Fatime Selimi, Mike Lynch, Selma Duric"
+author: "Chirag Rank, Fatime Selimi, Mike Lynch, Selma Duric"
 date: "15/01/2021"
 bibliography: reference.bib
-output: html_document
+output: md_document
 ---
 
 ```{r setup, include=FALSE}
@@ -22,7 +22,7 @@ To address these issues, we propose a dashboard which would be used by HR profes
 
 ## Description of the Data
 
-Our data-set is part of the survey conducted by a non-profit organization named Open Sourcing Mental Illness intended to measure attitudes towards mental health and the frequency of mental health disorders in the tech workplace. We will be visualizing the data based on the surveys that have been conducted in the year 2014 and from 2016 to 2020 that are available at OSMI [@illness2014a]. The data features collected varies across the years and has columns that contain information related to the respondents(age, gender, country, states, treatment, etc), the respondent's company, and related wellness information(no of employees, remote work, benefits, wellness program, leave, etc) and the viewpoint of the respondent on seeking help and discussing wellness related issues(e.g. Do you think that discussing a mental health issue with your employer would have negative consequences?)
+Our data-set is part of the survey conducted by a non-profit organization named Open Sourcing Mental Illness intended to measure attitudes towards mental health and the frequency of mental health disorders in the tech workplace. We will be visualizing the data based on the surveys that have been conducted in the year 2014 and from 2016 to 2020 that are available at OSMI [@illness2014a]. The data features collected varies across the years and has columns that contain information related to the respondents(age, gender, country, states, treatment, etc), the respondent's company, and related wellness information(number of employees, remote work, benefits, wellness program, leave, etc) and the viewpoint of the respondent on seeking help and discussing wellness related issues(e.g.: Do you think that discussing a mental health issue with your employer would have negative consequences?)
 
 ## Research Questions and Usage Scenarios
 
