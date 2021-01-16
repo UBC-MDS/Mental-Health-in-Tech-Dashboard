@@ -26,10 +26,7 @@ their employees.
 
 Below is simplified mock-up of Mental Health in Tech Dashboard
 
-<img src="sketch.png" alt="App sketch" width="100%" />
-<p class="caption">
-App sketch
-</p>
+<img src="sketch3.png" width="100%" />
 
 License
 =======

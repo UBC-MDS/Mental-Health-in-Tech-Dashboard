@@ -1,6 +1,6 @@
 ---
 title: "Mental Health in Tech Dashboard"
-output: html_document
+output: md_document
 authors: Chirag Rank, Fatime Selimi, Mike Lynch, Selma Duric
 ---
 
