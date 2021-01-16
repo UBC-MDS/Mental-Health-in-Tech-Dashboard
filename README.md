@@ -24,6 +24,13 @@ the mental health condition of employees and the relation to those
 variables, namely the benefits and care options an employer provides for
 their employees.
 
+Below is simplified mock-up of Mental Health in Tech Dashboard
+
+<img src="sketch.png" alt="App sketch" width="100%" />
+<p class="caption">
+App sketch
+</p>
+
 License
 =======
 
@@ -32,6 +39,3 @@ the MIT License (Copyright (c) 2021 Master of Data Science at the
 University of British Columbia). If you want to re-use/re-mix the
 materials used in this project, please provide attribution and link to
 this repository.
-
-References
-==========
