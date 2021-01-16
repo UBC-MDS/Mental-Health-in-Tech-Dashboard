@@ -1,6 +1,12 @@
 ---
 title: "Mental Health in Tech Dashboard"
-output: md_document
+output:
+  md_document:
+    toc: yes
+  pdf_document:
+    toc: yes
+  html_document:
+    toc: yes
 authors: Chirag Rank, Fatime Selimi, Mike Lynch, Selma Duric
 ---
 
@@ -14,7 +20,7 @@ The app first provides visual insights about the survey data set which includes 
 
 Below is simplified mock-up of Mental Health in Tech Dashboard
 
-```{r pressure, echo=FALSE, fig.cap="", out.width = '100%'}
+```{r sketch, echo=FALSE, fig.cap="", out.width = '100%'}
 knitr::include_graphics("sketch3.png")
 ```
 

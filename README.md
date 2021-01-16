@@ -1,3 +1,8 @@
+-   [About](#about)
+    -   [Description of Mental Health in Tech
+        Dashboard](#description-of-mental-health-in-tech-dashboard)
+-   [License](#license)
+
 About
 =====
 
