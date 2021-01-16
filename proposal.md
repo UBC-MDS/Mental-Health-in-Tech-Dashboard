@@ -42,9 +42,10 @@ Description of the Data
 -----------------------
 
 Our data-set is part of the survey conducted by a non-profit
-organization named Open Sourcing Mental Illness intended to measure
+organization named [Open Sourcing Mental Illness](https://osmihelp.org/) intended to measure
 attitudes towards mental health and the frequency of mental health
-disorders in the tech workplace. We will be visualizing the data based
+disorders in the tech workplace. This data set is publicly available in [Kaggle](https://www.kaggle.com/osmi/mental-health-in-tech-2016).
+We will be visualizing the data based
 on the surveys that have been conducted in the year 2014 and from 2016
 to 2020 that are available at OSMI (Illness 2014). The data features
 collected varies across the years and has columns that contain
