@@ -1,3 +1,11 @@
+-   [Motivation and Purpose](#motivation-and-purpose)
+-   [Description of the Data](#description-of-the-data)
+-   [Research Questions and Usage
+    Scenarios](#research-questions-and-usage-scenarios)
+    -   [Example Usage Scenario](#example-usage-scenario)
+    -   [Research Questions](#research-questions)
+-   [References](#references)
+
 Motivation and Purpose
 ----------------------
 
@@ -44,8 +52,8 @@ information related to the respondents(age, gender, country, states,
 treatment, etc), the respondent’s company, and related wellness
 information(number of employees, remote work, benefits, wellness
 program, leave, etc) and the viewpoint of the respondent on seeking help
-and discussing wellness related issues(e.g.: Do you think that
-discussing a mental health issue with your employer would have negative
+and discussing wellness related issues(e.g. Do you think that discussing
+a mental health issue with your employer would have negative
 consequences?)
 
 Research Questions and Usage Scenarios

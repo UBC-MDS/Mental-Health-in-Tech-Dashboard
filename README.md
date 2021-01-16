@@ -1,14 +1,31 @@
--   [About](#about)
-    -   [Description of Mental Health in Tech
-        Dashboard](#description-of-mental-health-in-tech-dashboard)
+-   [Mental Health in Tech Dashboard](#mental-health-in-tech-dashboard)
+    -   [Relevance](#relevance)
+    -   [Overview](#overview)
 -   [License](#license)
 
-About
-=====
+Mental Health in Tech Dashboard
+===============================
 
-### Description of Mental Health in Tech Dashboard
+The Mental Health in Tech Dashboard dashboard will allow filtering
+between responses for those who indicate that they do have a mental
+health issue versus those that do not and comparing various variables to
+see how much they may interfere with their work.
 
-The app first provides visual insights about the survey data set which
+Relevance
+---------
+
+Although HR departments implement processes and cultivate workplace
+culture so as to encourage good mental health, it is often unclear
+whether these policies do in fact make a difference. With our intended
+dashboard HR professionals who are in charge of setting HR policy in
+organizations would be able to visually explore a survey data set of
+mental health attitudes from tech workers across the globe to identify
+potential connections that may help with policy setting.
+
+Overview
+--------
+
+The app provides visual insights about the survey data set which
 includes countries and number of respondents in each country, number of
 respondents related to a certain sex, the age range of survey
 respondents, number of people in the data set who are self-employed
@@ -31,7 +48,7 @@ their employees.
 
 Below is simplified mock-up of Mental Health in Tech Dashboard
 
-<img src="sketch3.png" width="100%" />
+![App sketch](sketch3.png)
 
 License
 =======
