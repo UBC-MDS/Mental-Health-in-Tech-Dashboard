@@ -1,3 +1,11 @@
+-   [Motivation and Purpose](#motivation-and-purpose)
+-   [Description of the Data](#description-of-the-data)
+-   [Research Questions and Usage
+    Scenarios](#research-questions-and-usage-scenarios)
+    -   [Example Usage Scenario](#example-usage-scenario)
+    -   [Research Questions](#research-questions)
+-   [References](#references)
+
 Motivation and Purpose
 ----------------------
 
@@ -34,9 +42,10 @@ Description of the Data
 -----------------------
 
 Our data-set is part of the survey conducted by a non-profit
-organization named Open Sourcing Mental Illness intended to measure
+organization named [Open Sourcing Mental Illness](https://osmihelp.org/) intended to measure
 attitudes towards mental health and the frequency of mental health
-disorders in the tech workplace. We will be visualizing the data based
+disorders in the tech workplace. This data set is publicly available in [Kaggle](https://www.kaggle.com/osmi/mental-health-in-tech-2016).
+We will be visualizing the data based
 on the surveys that have been conducted in the year 2014 and from 2016
 to 2020 that are available at OSMI (Illness 2014). The data features
 collected varies across the years and has columns that contain
@@ -44,8 +53,8 @@ information related to the respondents(age, gender, country, states,
 treatment, etc), the respondent’s company, and related wellness
 information(number of employees, remote work, benefits, wellness
 program, leave, etc) and the viewpoint of the respondent on seeking help
-and discussing wellness related issues(e.g.: Do you think that
-discussing a mental health issue with your employer would have negative
+and discussing wellness related issues(e.g. Do you think that discussing
+a mental health issue with your employer would have negative
 consequences?)
 
 Research Questions and Usage Scenarios
