@@ -1,0 +1,31 @@
+﻿questions,variables
+Are you self-employed?,self_employed
+How many employees does your company or organization have?,num_employees
+Is your employer primarily a tech company/organization?,tech_org
+Does your employer provide mental health benefits as part of healthcare coverage?,mental_health_benefits_healthcare
+Does your employer offer resources to learn more about mental health concerns and options for seeking help?,mental_health_resources
+"If a mental health issue prompted you to request a medical leave from work, asking for that leave would be:",mental_health_leave
+Do you think that discussing a mental health disorder with your employer would have negative consequences?,mental_disorder_discuss
+Do you think that discussing a physical health issue with your employer would have negative consequences?,health_disorder_discuss
+Would you feel comfortable discussing a mental health disorder with your coworkers?,discuss_coworker
+Would you feel comfortable discussing a mental health disorder with your direct supervisor(s)?,discuss_supervisor
+Do you know local or online resources to seek help for a mental health disorder?,online_resources
+Do you believe your productivity is ever affected by a mental health issue?,productivity
+"If yes, what percentage of your work time (time performing primary or secondary job functions) is affected by a mental health issue?",productivity_percent
+Do you currently have a mental health disorder?,have_mental_helth_disorder
+"If yes, what condition(s) have you been diagnosed with?",mental_health_diagnosis
+Have you ever sought treatment for a mental health issue from a mental health professional?,treatment
+"If you have a mental health issue, do you feel that it interferes with your work when being treated effectively?",work_interfere_treated
+"If you have a mental health issue, do you feel that it interferes with your work when NOT being treated effectively?",work_interfere_not_treated
+What is your age?,age
+What is your gender?,gender
+What country do you live in?,country
+Do you work remotely?,is_remote
+Is your primary role within your company related to tech/IT?,tech_role
+Do you know the options for mental health care available under your employer-provided coverage?,mental_health_benefits_employer
+"Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?",formal_discuss
+Is your anonymity protected if you choose to take advantage of mental health or substance abuse treatment resources provided by your employer?,anonymity
+Do you feel that your employer takes mental health as seriously as physical health?,mental_vs_physical
+Do you have medical coverage (private insurance or state-provided) which includes treatment of ¬†mental health issues?,medical_coverage
+Do you feel that being identified as a person with a mental health issue would hurt your career?,career_effect
+Do you have a family history of mental illness?,family_history
