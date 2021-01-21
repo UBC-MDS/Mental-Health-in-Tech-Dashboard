@@ -6,8 +6,8 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import altair as alt
 
-
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 
 data = pd.read_csv("data/processed/mental_health_clean.csv")
 
