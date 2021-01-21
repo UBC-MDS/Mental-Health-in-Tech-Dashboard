@@ -1,7 +1,39 @@
-.Rproj.user
+# vscode files
+.vscode
+
+# History files
+.history
+.ipynb_checkpoints/
+.DS_Store
 .Rhistory
+
+# RStudio files
+.Rproj.user/
+**.Rproj
+.Rproj.user
 .RData
 .Ruserdata
-.vscode
 Mental-Health-in-Tech-Dashboard.Rproj
-.DS_Store
+
+# knitr and R markdown default cache directories
+*_cache/
+/cache/
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+# R Environment Variables
+.Renviron
+
+# Byte-compiled/optimized files
+__pycache__/
+
+# PyCharm files
+.idea/
+
+# Ignore all .csv files
+# *.csv
+
+# Ignore log files
+*.log
