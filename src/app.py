@@ -12,19 +12,50 @@ server = app.server
 data = pd.read_csv("data/processed/mental_health_clean.csv")
 
 # app layout
-app.layout = dbc.Container([
-    html.H1("Mental Health in Tech Dashboard"),
-        dbc.Row([
-                dbc.Col([
+app.layout = dbc.Container(
+    [
+        html.H1("Mental Health in Tech Dashboard"),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
                         dcc.Dropdown(
                             id="q_selection",
                             value="tech_org",
                             options=[
-                                {"label": i, "value": i} for i in data.columns[:18]],),],md=4),
-                dbc.Col([
+                                {"label": i, "value": i} for i in data.columns[:18]
+                            ],
+                        ),
+                        html.Br(),
+                        html.H4("Age of Respondents:"),
+                        dcc.RangeSlider(
+                            id="age_slider",
+                            min=15,
+                            max=65,
+                            step=1,
+                            allowCross=False,
+                            marks={15: "15", 65: "65",},
+                            value=[15, 65],
+                        ),
+                    ],
+                    md=4,
+                ),
+                dbc.Col(
+                    [
                         html.Iframe(
                             id="gender_barplot",
-                            style={"width": "100%", "height": "400px"},),]),])])
+                            style={"width": "100%", "height": "400px"},
+                        ),
+                        html.Iframe(
+                            id="work_interfere_barplot",
+                            style={"width": "100%", "height": "400px"},
+                        ),
+                    ]
+                ),
+            ]
+        ),
+    ]
+)
 
 # plot specs
 @app.callback(Output("gender_barplot", "srcDoc"), Input("q_selection", "value"))
@@ -40,6 +71,50 @@ def plot_gender_chart(q_selection="mental_health_benefits_employer"):
         )
     )
     return chart.to_html()
+
+
+@app.callback(Output("work_interfere_barplot", "srcDoc"), Input("age_slider", "value"))
+def plot_work_interfere_bars(age_slider=[15, 65]):
+    plot_data = data
+    # To filter for responses that indicated they had a mental health condition:
+    plot_data = plot_data.query(
+        'work_interfere_treated != "Not applicable to me" & work_interfere_not_treated != "Not applicable to me"'
+    )
+    # To filter data for responses in the age range:
+    plot_data = plot_data.query("age >= @age_slider[0] & age <= @age_slider[1]")
+    # To generate the plots:
+    treated = (
+        alt.Chart(plot_data, title="When Treated")
+        .mark_bar()
+        .encode(
+            x=alt.X(
+                "work_interfere_treated",
+                sort=["Never", "Rarely", "Sometimes", "Often"],
+                axis=alt.Axis(title=""),
+            ),
+            y=alt.Y("count()", axis=alt.Axis(title="Number of Responses")),
+        )
+        .properties(height=200, width=200)
+    )
+    untreated = (
+        alt.Chart(plot_data, title="When Untreated")
+        .mark_bar()
+        .encode(
+            x=alt.X(
+                "work_interfere_not_treated",
+                sort=["Never", "Rarely", "Sometimes", "Often"],
+                axis=alt.Axis(title=""),
+            ),
+            y=alt.Y("count()", axis=alt.Axis(title="Number of Responses")),
+        )
+        .properties(height=200, width=200)
+    )
+    viz = alt.hconcat(
+        treated,
+        untreated,
+        title="Does your mental health issue interfere with your work?",
+    ).configure_title(fontSize=20, font="Courier", anchor="middle", color="gray")
+    return viz.to_html()
 
 
 if __name__ == "__main__":
