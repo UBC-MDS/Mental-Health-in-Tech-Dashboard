@@ -38,7 +38,7 @@ app.layout = dbc.Container(
                             value=[15, 65],
                         ),
                     ],
-                    md=4,
+                    md=3,
                 ),
                 dbc.Col(
                     [
@@ -54,6 +54,39 @@ app.layout = dbc.Container(
                 ),
             ]
         ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [   
+                        html.H4("Gender"),
+                        dcc.RadioItems(
+                            id = "gender_selection",
+                            options=[
+                                {'label': 'All', 'value': 'all'},
+                                {'label': 'Male', 'value': 'Male'},
+                                {'label': 'Female', 'value': 'Female'},
+                                {'label': 'Others', 'value': 'Other'},
+                            ],
+                            value='all',
+                            inputStyle = {
+                                "margin-left": "10px",
+                                "margin-right": "2px"
+                            }
+                        )
+                    ],
+                    md=3,
+                ),
+                dbc.Col(
+                    [
+                        html.Iframe(
+                            id="remote_barplot",
+                            style={"width": "100%", "height": "400px"},
+                        ),
+                    ]
+                )                
+            ]
+
+        )
     ]
 )
 
@@ -116,6 +149,35 @@ def plot_work_interfere_bars(age_slider=[15, 65]):
     ).configure_title(fontSize=20, font="Courier", anchor="middle", color="gray")
     return viz.to_html()
 
+
+@app.callback(Output("remote_barplot", "srcDoc"), Input("gender_selection", "value"))
+def plot_remote_work(gender="all"):
+    replace_dic = {"Maybe": "Mental Health Response:\nMaybe", "Yes": "Mental Health Response:\nYes", "No": "Mental Health Response:\nNo"}
+    
+    # Remove null values
+    remote_df = data[data["gender"].notnull()].copy()
+    remote_df["have_mental_helth_disorder"].replace(replace_dic, inplace=True)
+
+    # Default condition
+    if gender == "all":
+        remote_plot =  alt.Chart(remote_df, title="Do employees that work remotely report fewer mental health issues?").\
+        mark_bar().encode(x=alt.X("is_remote", axis=None),
+                                  y = alt.Y("count()", title="Number of Responses"),
+                                  color=alt.Color("is_remote", legend=alt.Legend(title="Remote work")),
+                                  column = alt.Column("have_mental_helth_disorder", title="")).\
+        configure_header(labelFontSize=12, labelOrient='bottom').\
+        properties(height=220, width=170).configure_title(fontSize=18, font='Courier', anchor='middle', color='gray')
+    else:
+    # Selected Filter condition    
+        remote_plot =  alt.Chart(remote_df[remote_df["gender"]==gender], title="Do employees that work remotely report fewer mental health issues?").\
+        mark_bar().encode(x=alt.X("is_remote", axis=None),
+                                  y = alt.Y("count()", title="Number of Responses"),
+                                  color=alt.Color("is_remote", legend=alt.Legend(title="Remote work")),
+                                  column = alt.Column("have_mental_helth_disorder", title="")).\
+        configure_header(labelFontSize=12, labelOrient='bottom').\
+        properties(height=220, width=170).configure_title(fontSize=18, font='Courier', anchor='middle', color='gray')
+    
+    return remote_plot.to_html()
 
 if __name__ == "__main__":
     app.run_server(debug=True)
