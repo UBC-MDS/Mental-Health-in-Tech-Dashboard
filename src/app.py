@@ -12,6 +12,8 @@ app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
 data = pd.read_csv("data/processed/mental_health_clean.csv")
+feature_list = pd.read_csv("data/processed/features_list.csv", encoding="utf-8")
+feature_list.set_index("variables", inplace=True)
 
 # app layout
 app.layout = dbc.Container(
@@ -27,7 +29,7 @@ app.layout = dbc.Container(
                             id="q_selection",
                             value="tech_org",
                             options=[
-                                {"label": i, "value": i} for i in np.r_[data.columns[0:14], data.columns[15:18]]
+                                {"label": feature_list.loc[i]["variables3"], "value": i} for i in np.r_[data.columns[0:14], data.columns[15:18]]
                             ],
                         ),
                     ],
@@ -212,7 +214,7 @@ app.layout = dbc.Container(
 @app.callback(Output("gender_barplot", "srcDoc"), Input("q_selection", "value"))
 def plot_gender_chart(q_selection="mental_health_benefits_employer"):
     chart = (
-        alt.Chart(data, title=f"Responses by gender: {q_selection}")
+        alt.Chart(data, title=f"{feature_list.loc[q_selection]['variables2']}")
         .mark_bar()
         .encode(
             alt.X("gender", title=""),
