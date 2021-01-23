@@ -5,6 +5,7 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import pandas as pd
 import altair as alt
+import numpy as np
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
@@ -25,7 +26,7 @@ app.layout = dbc.Container(
                             id="q_selection",
                             value="tech_org",
                             options=[
-                                {"label": i, "value": i} for i in data.columns[:18]
+                                {"label": i, "value": i} for i in np.r_[data.columns[0:14], data.columns[15:18]]
                             ],
                         ),
                     ],
@@ -35,7 +36,7 @@ app.layout = dbc.Container(
                     [
                         html.Iframe(
                             id="gender_barplot",
-                            style={"width": "100%", "height": "400px"},
+                            style={"width": "100%", "height": "500px"},
                         ),
                     ]
                 ),
@@ -106,14 +107,16 @@ app.layout = dbc.Container(
 @app.callback(Output("gender_barplot", "srcDoc"), Input("q_selection", "value"))
 def plot_gender_chart(q_selection="mental_health_benefits_employer"):
     chart = (
-        alt.Chart(data)
+        alt.Chart(data, title=f"Responses by gender: {q_selection}")
         .mark_bar()
         .encode(
             alt.X("gender", title=""),
-            alt.Y("count()"),
+            alt.Y("count()", title="Number of Responses"),
             color=alt.Color("gender", legend=None),
-            column=alt.Column(q_selection, type="nominal", title="Responses by Gender"),
-        )
+            column=alt.Column(q_selection, type="nominal", title=""),
+        ).configure_header(labelFontSize=10)
+            .configure_title(fontSize=18, font="Courier", anchor="middle", color="gray")
+            .properties(height=300, width=80)
     )
     return chart.to_html()
 
