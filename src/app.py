@@ -284,8 +284,8 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     return viz.to_html()
 
 
-@app.callback(Output("remote_barplot", "srcDoc"), Input("gender_selection", "value"))
-def plot_remote_work(gender="all"):
+@app.callback(Output("remote_barplot", "srcDoc"), Input("age_slider", "value"), Input("gender_selection", "value"))
+def plot_remote_work(age_slider=[15, 65], gender="all"):
     replace_dic = {
         "Maybe": "Mental Health Response:\nMaybe",
         "Yes": "Mental Health Response:\nYes",
@@ -295,6 +295,8 @@ def plot_remote_work(gender="all"):
     # Remove null values
     remote_df = data[data["gender"].notnull()].copy()
     remote_df["have_mental_helth_disorder"].replace(replace_dic, inplace=True)
+
+    remote_df = remote_df.query("age >= @age_slider[0] & age <= @age_slider[1]")
 
     # Default condition
     if gender == "all":
