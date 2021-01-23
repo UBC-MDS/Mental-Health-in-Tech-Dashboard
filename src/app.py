@@ -35,7 +35,7 @@ app.layout = dbc.Container(
                     [
                         html.Iframe(
                             id="gender_barplot",
-                            style={"width": "100%", "height": "400px"},
+                            style={"width": "100%", "height": "500px"},
                         ),
                     ]
                 ),
@@ -110,7 +110,7 @@ def plot_gender_chart(q_selection="mental_health_benefits_employer"):
         .mark_bar()
         .encode(
             alt.X("gender", title=""),
-            alt.Y("count()"),
+            alt.Y("count()", title="Number of Responses"),
             color=alt.Color("gender", legend=None),
             column=alt.Column(q_selection, type="nominal", title="Responses by Gender"),
         )
