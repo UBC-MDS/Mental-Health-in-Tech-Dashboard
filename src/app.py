@@ -106,14 +106,15 @@ app.layout = dbc.Container(
 @app.callback(Output("gender_barplot", "srcDoc"), Input("q_selection", "value"))
 def plot_gender_chart(q_selection="mental_health_benefits_employer"):
     chart = (
-        alt.Chart(data)
+        alt.Chart(data, title=f"Responses by gender: {q_selection}")
         .mark_bar()
         .encode(
             alt.X("gender", title=""),
             alt.Y("count()", title="Number of Responses"),
             color=alt.Color("gender", legend=None),
-            column=alt.Column(q_selection, type="nominal", title="Responses by Gender"),
-        )
+            column=alt.Column(q_selection, type="nominal", title=""),
+        ).configure_header(labelFontSize=12)
+            .configure_title(fontSize=18, font="Courier", anchor="middle", color="gray")
     )
     return chart.to_html()
 
