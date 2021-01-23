@@ -5,6 +5,7 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import pandas as pd
 import altair as alt
+import numpy as np
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
@@ -25,7 +26,7 @@ app.layout = dbc.Container(
                             id="q_selection",
                             value="tech_org",
                             options=[
-                                {"label": i, "value": i} for i in data.columns[:18]
+                                {"label": i, "value": i} for i in np.r_[data.columns[0:14], data.columns[15:18]]
                             ],
                         ),
                     ],
@@ -113,8 +114,9 @@ def plot_gender_chart(q_selection="mental_health_benefits_employer"):
             alt.Y("count()", title="Number of Responses"),
             color=alt.Color("gender", legend=None),
             column=alt.Column(q_selection, type="nominal", title=""),
-        ).configure_header(labelFontSize=12)
+        ).configure_header(labelFontSize=10)
             .configure_title(fontSize=18, font="Courier", anchor="middle", color="gray")
+            .properties(height=300, width=80)
     )
     return chart.to_html()
 
