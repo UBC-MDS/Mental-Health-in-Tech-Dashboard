@@ -5,6 +5,7 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import pandas as pd
 import altair as alt
+import plotly.graph_objects as go
 import numpy as np
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -97,11 +98,115 @@ app.layout = dbc.Container(
                             style={"width": "100%", "height": "400px"},
                         ),
                     ]
-                ),
+                )
             ]
         ),
+        html.Hr(),
+
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        html.P(
+                            "Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?"),
+                        dcc.RadioItems(
+                            id="formal_discuss_radio",
+                            options=[
+                                {'label': 'Yes', 'value': 'Yes'},
+                                {'label': 'No', 'value': 'No'},
+                                {'label': "I don't know", 'value': "I don't know"},
+                            ],
+                            value='Yes',
+                            inputStyle={
+                                "marginLeft": "20px",
+                                "marginRight": "5px"
+                            },
+                            labelStyle={'display': 'block'}
+                        )
+                    ],
+                    md=4,
+                ),
+                dbc.Col(
+                    [
+                        html.P(
+                            "Do you know the options for mental health care available under your employer-provided coverage?"),
+                        dcc.RadioItems(
+                            id="mental_health_benefits_employer_radio",
+                            options=[
+                                {'label': 'Yes', 'value': 'Yes'},
+                                {'label': 'No', 'value': 'No'},
+                                {'label': "I am not sure", 'value': "I am not sure"},
+                            ],
+                            value='Yes',
+                            inputStyle={
+                                "marginLeft": "20px",
+                                "marginRight": "5px"
+                            },
+                            labelStyle={'display': 'block'}
+                        )
+                    ],
+                    md=4,
+                ),
+                dbc.Col(
+                    [
+                        html.P(
+                            "If a mental health issue prompted you to request a medical leave from work, asking for that leave would be:"),
+                        dcc.RadioItems(
+                            id="mental_health_leave_radio",
+                            options=[
+                                {'label': 'Very easy', 'value': 'Very easy'},
+                                {'label': 'Somewhat easy', 'value': 'Somewhat easy'},
+                                {'label': "Neither easy nor difficult", 'value': "Neither easy nor difficult"},
+                                {'label': "Somewhat difficult", 'value': "Somewhat difficult"},
+                                {'label': "Very difficult", 'value': "Very difficult"},
+                            ],
+                            value='Very easy',
+                            inputStyle={
+                                "marginLeft": "20px",
+                                "marginRight": "5px"
+                            },
+                            labelStyle={'display': 'block'}
+                        )
+                    ],
+                    md=4,
+                ),
+            ]
+
+        ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        dcc.Graph(
+                            id="formal_discuss_donutplot",
+
+                        ),
+                    ],
+                    md=4,
+                ),
+                dbc.Col(
+                    [
+                        dcc.Graph(
+                            id="mental_health_benefits_employer_donutplot"
+                        ),
+                    ],
+                    md=4,
+                ),
+                dbc.Col(
+                    [
+                        dcc.Graph(
+                            id="mental_health_leave_donutplot"
+                        ),
+                    ],
+                    md=4,
+                )
+            ]
+
+        )
+
     ]
 )
+
 
 # plot specs
 @app.callback(Output("gender_barplot", "srcDoc"), Input("q_selection", "value"))
@@ -141,8 +246,8 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     # To generate the plots:
     treated = (
         alt.Chart(plot_data, title="When Treated")
-        .mark_bar()
-        .encode(
+            .mark_bar()
+            .encode(
             x=alt.X(
                 "work_interfere_treated",
                 sort=["Never", "Rarely", "Sometimes", "Often"],
@@ -153,12 +258,12 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
                 "work_interfere_treated", legend=alt.Legend(title="How Often?")
             ),
         )
-        .properties(height=200, width=200)
+            .properties(height=200, width=200)
     )
     untreated = (
         alt.Chart(plot_data, title="When Untreated")
-        .mark_bar()
-        .encode(
+            .mark_bar()
+            .encode(
             x=alt.X(
                 "work_interfere_not_treated",
                 sort=["Never", "Rarely", "Sometimes", "Often"],
@@ -169,7 +274,7 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
                 "work_interfere_not_treated", legend=alt.Legend(title="How Often?")
             ),
         )
-        .properties(height=200, width=200)
+            .properties(height=200, width=200)
     )
     viz = alt.hconcat(
         treated,
@@ -229,6 +334,54 @@ def plot_remote_work(gender="all"):
         )
 
     return remote_plot.to_html()
+
+
+COUNTRIES = ['United States of America', 'United Kingdom', 'Canada', 'Germany']
+
+
+@app.callback(Output("formal_discuss_donutplot", "figure"),
+              Input("formal_discuss_radio", "value"))
+def formal_discuss_donut_chart(formal_discuss='No'):
+    column_name = 'formal_discuss'
+    return build_graph(column_name, formal_discuss)
+
+
+@app.callback(Output("mental_health_benefits_employer_donutplot", "figure"),
+              Input("mental_health_benefits_employer_radio", "value"))
+def mental_health_benefits_employer_donut_chart(mental_health_benefits_employer='No'):
+    column_name = 'mental_health_benefits_employer'
+    return build_graph(column_name, mental_health_benefits_employer)
+
+
+@app.callback(Output("mental_health_leave_donutplot", "figure"),
+              Input("mental_health_leave_radio", "value"))
+def mental_health_leave_donut_chart(mental_health_leave=''):
+    column_name = 'mental_health_leave'
+    return build_graph(column_name, mental_health_leave)
+
+
+def build_graph(column_name, column_input):
+    subset_data = data[[column_name, 'country']].copy().dropna()
+    subset_data['countries'] = [x if x in COUNTRIES else 'Other' for x in subset_data['country']]
+    normalize_countries = subset_data.groupby(["countries"])[column_name].value_counts(
+        normalize=True).mul(
+        100).unstack(
+        column_name).reset_index()
+    labels = normalize_countries['countries']
+    values = normalize_countries[column_input]
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.44)])
+    return fig.update_layout(
+        autosize=False,
+        width=330,
+        height=330,
+        legend=dict(
+            yanchor="bottom",
+            y=0.99,
+            xanchor="left",
+            x=0.01
+        ),
+        margin=dict(r=20, l=0, b=0, t=0)
+    )
 
 
 if __name__ == "__main__":
