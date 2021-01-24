@@ -3,12 +3,12 @@ Are you self-employed?,self_employed,Are you self-employed?,Self employed
 How many employees does your company or organization have?,num_employees,How many employees?,Number of employees
 Is your employer primarily a tech company/organization?,tech_org,Is employer primarily a tech company?,Tech organization
 Does your employer provide mental health benefits as part of healthcare coverage?,mental_health_benefits_healthcare,Are mental health benefits provided as part of healthcare?,Mental health benefits healthcare
-Does your employer offer resources to learn more about mental health concerns and options for seeking help?,mental_health_resources,Do employer provide resources related to mental health concerns?,Mental health resources
-"If a mental health issue prompted you to request a medical leave from work, asking for that leave would be:",mental_health_leave,What reason would you provide for a leave for mental health issue? ,Mental health leave
-Do you think that discussing a mental health disorder with your employer would have negative consequences?,mental_disorder_discuss,Does discussing mental health issues have negative consequence?,Mental disorder discussion
-Do you think that discussing a physical health issue with your employer would have negative consequences?,health_disorder_discuss,Does discussing physical health issues have negative consequence?,Physical health issues discussion
-Would you feel comfortable discussing a mental health disorder with your coworkers?,discuss_coworker,Feel comfortable discussing mental health issues with co-worker?,Discuss with coworker
-Would you feel comfortable discussing a mental health disorder with your direct supervisor(s)?,discuss_supervisor,Feel comfortable discussing mental health issues with direct supervisor?,Discuss with  supervisor
+Does your employer offer resources to learn more about mental health concerns and options for seeking help?,mental_health_resources,Does your employer provide mental health resources?,Mental health resources
+"If a mental health issue prompted you to request a medical leave from work, asking for that leave would be:",mental_health_leave,How difficult would it be to ask for mental health leave?,Mental health leave
+Do you think that discussing a mental health disorder with your employer would have negative consequences?,mental_disorder_discuss,Discussing mental health issues have negative consequences?,Mental disorder discussion
+Do you think that discussing a physical health issue with your employer would have negative consequences?,health_disorder_discuss,Discussing physical health issues have negative consequences?,Physical health issues discussion
+Would you feel comfortable discussing a mental health disorder with your coworkers?,discuss_coworker,Comfortable discussing mental health issues with co-workers?,Discuss with coworker
+Would you feel comfortable discussing a mental health disorder with your direct supervisor(s)?,discuss_supervisor,Comfortable discussing mental health issues with your supervisor?,Discuss with  supervisor
 Do you know local or online resources to seek help for a mental health disorder?,online_resources,Aware of local/online resources to seek help for mental health issue?,Online resources
 Do you believe your productivity is ever affected by a mental health issue?,productivity,Is the productivity affected by mental health issue?,Productivity impact
 "If yes, what percentage of your work time (time performing primary or secondary job functions) is affected by a mental health issue?",productivity_percent,What percentage of time is affected by mental health issue?,Productivity impact percent
