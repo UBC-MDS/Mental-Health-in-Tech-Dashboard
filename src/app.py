@@ -30,7 +30,7 @@ app.layout = dbc.Container(
 @app.callback(Output("tab-content", "children"), [Input("tabs", "active_tab")])
 def switch_tab(at):
     if at == "tab-1":
-        return hc.get_overview_section()
+        return hc.get_overview_section(data, feature_list)
     elif at == "tab-2":
         return hc.get_second_section()
     elif at== "tab-3":

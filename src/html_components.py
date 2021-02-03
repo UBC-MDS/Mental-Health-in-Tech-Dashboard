@@ -5,11 +5,8 @@ import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv("data/processed/mental_health_clean.csv")
-feature_list = pd.read_csv("data/processed/features_list.csv", encoding="utf-8")
-feature_list.set_index("variables", inplace=True)
 
-def get_overview_section():
+def get_overview_section(data, feature_list):
 
     plot1 = html.Div([
             html.Hr(),
