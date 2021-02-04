@@ -73,7 +73,7 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     # To generate the plots:
     treated = (
         alt.Chart(plot_data, title="When Treated")
-        .mark_bar(color="#a39bf9")
+        .mark_bar(color="#a39fc9")
         .encode(
             x=alt.X(
                 "work_interfere_treated",
@@ -90,7 +90,7 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     )
     untreated = (
         alt.Chart(plot_data, title="When Untreated")
-        .mark_bar(color="#a39bf9")
+        .mark_bar(color="#a39fc9")
         .encode(
             x=alt.X(
                 "work_interfere_not_treated",
