@@ -64,7 +64,7 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     plot_data = data
     # To apply filters to the plot data:
     plot_data = plot_data.query(
-        'work_interfere_treated != "Not applicable to me" & work_interfere_not_treated != "Not applicable to me" & age >= @age_slider[0] & age <= @age_slider[1]'
+        'work_interfere_treated != "Not applicable to me" & work_interfere_not_treated != "Not applicable to me" & @age_slider[0] <= age <= @age_slider[1]'
     )
     # To filter data for responses in the target gender:
     if gender != "all":
