@@ -7,207 +7,35 @@ import pandas as pd
 import altair as alt
 import plotly.graph_objects as go
 import numpy as np
+import html_components as hc
 
-app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 server = app.server
 
 data = pd.read_csv("data/processed/mental_health_clean.csv")
 feature_list = pd.read_csv("data/processed/features_list.csv", encoding="utf-8")
 feature_list.set_index("variables", inplace=True)
 
+
 # app layout
 app.layout = dbc.Container(
     [
         html.H1("Mental Health in Tech Dashboard"),
         html.Hr(),
-        dbc.Row([html.H2("Overview Section:")]),
-        dbc.Row(
-            [
-                dbc.Col(
-                    [
-                        dcc.Dropdown(
-                            id="q_selection",
-                            value="tech_org",
-                            options=[
-                                {"label": feature_list.loc[i]["variables3"], "value": i} for i in np.r_[data.columns[0:14], data.columns[15:18]]
-                            ],
-                        ),
-                    ],
-                    md=3,
-                ),
-                dbc.Col(
-                    [
-                        html.Iframe(
-                            id="gender_barplot",
-                            style={"width": "100%", "height": "500px"},
-                        ),
-                    ]
-                ),
-            ]
-        ),
-        dbc.Row([html.Hr()]),
-        dbc.Row([html.H2("HR Questions Section:")]),
-        dbc.Row(
-            [
-                dbc.Col(
-                    [
-                        html.H4("Gender"),
-                        dcc.RadioItems(
-                            id="gender_selection",
-                            options=[
-                                {"label": "All", "value": "all"},
-                                {"label": "Male", "value": "Male"},
-                                {"label": "Female", "value": "Female"},
-                                {"label": "Others", "value": "Other"},
-                            ],
-                            value="all",
-                            inputStyle={"margin-left": "10px", "margin-right": "2px"},
-                        ),
-                        html.Br(),
-                        html.H4("Age of Respondents:"),
-                        dcc.RangeSlider(
-                            id="age_slider",
-                            min=15,
-                            max=65,
-                            step=None,
-                            allowCross=False,
-                            marks={
-                                15: "15",
-                                20: "20",
-                                25: "25",
-                                30: "30",
-                                35: "35",
-                                40: "40",
-                                45: "45",
-                                50: "50",
-                                55: "55",
-                                60: "60",
-                                65: "65",
-                            },
-                            value=[15, 65],
-                        ),
-                    ],
-                    md=3,
-                ),
-                dbc.Col(
-                    [
-                        html.Iframe(
-                            id="work_interfere_barplot",
-                            style={"width": "100%", "height": "300px"},
-                        ),
-                        html.Iframe(
-                            id="remote_barplot",
-                            style={"width": "100%", "height": "400px"},
-                        ),
-                    ]
-                )
-            ]
-        ),
-        html.Hr(),
-
-        dbc.Row(
-            [
-                dbc.Col(
-                    [
-                        html.P(
-                            "Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?"),
-                        dcc.RadioItems(
-                            id="formal_discuss_radio",
-                            options=[
-                                {'label': 'Yes', 'value': 'Yes'},
-                                {'label': 'No', 'value': 'No'},
-                                {'label': "I don't know", 'value': "I don't know"},
-                            ],
-                            value='Yes',
-                            inputStyle={
-                                "marginLeft": "20px",
-                                "marginRight": "5px"
-                            },
-                            labelStyle={'display': 'block'}
-                        )
-                    ],
-                    md=4,
-                ),
-                dbc.Col(
-                    [
-                        html.P(
-                            "Do you know the options for mental health care available under your employer-provided coverage?"),
-                        dcc.RadioItems(
-                            id="mental_health_benefits_employer_radio",
-                            options=[
-                                {'label': 'Yes', 'value': 'Yes'},
-                                {'label': 'No', 'value': 'No'},
-                                {'label': "I am not sure", 'value': "I am not sure"},
-                            ],
-                            value='Yes',
-                            inputStyle={
-                                "marginLeft": "20px",
-                                "marginRight": "5px"
-                            },
-                            labelStyle={'display': 'block'}
-                        )
-                    ],
-                    md=4,
-                ),
-                dbc.Col(
-                    [
-                        html.P(
-                            "If a mental health issue prompted you to request a medical leave from work, asking for that leave would be:"),
-                        dcc.RadioItems(
-                            id="mental_health_leave_radio",
-                            options=[
-                                {'label': 'Very easy', 'value': 'Very easy'},
-                                {'label': 'Somewhat easy', 'value': 'Somewhat easy'},
-                                {'label': "Neither easy nor difficult", 'value': "Neither easy nor difficult"},
-                                {'label': "Somewhat difficult", 'value': "Somewhat difficult"},
-                                {'label': "Very difficult", 'value': "Very difficult"},
-                            ],
-                            value='Very easy',
-                            inputStyle={
-                                "marginLeft": "20px",
-                                "marginRight": "5px"
-                            },
-                            labelStyle={'display': 'block'}
-                        )
-                    ],
-                    md=4,
-                ),
-            ]
-
-        ),
-        dbc.Row(
-            [
-                dbc.Col(
-                    [
-                        dcc.Graph(
-                            id="formal_discuss_donutplot",
-
-                        ),
-                    ],
-                    md=4,
-                ),
-                dbc.Col(
-                    [
-                        dcc.Graph(
-                            id="mental_health_benefits_employer_donutplot"
-                        ),
-                    ],
-                    md=4,
-                ),
-                dbc.Col(
-                    [
-                        dcc.Graph(
-                            id="mental_health_leave_donutplot"
-                        ),
-                    ],
-                    md=4,
-                )
-            ]
-
-        )
-
+        hc.get_tab_section(),
     ]
 )
+
+
+@app.callback(Output("tab-content", "children"), [Input("tabs", "active_tab")])
+def switch_tab(at):
+    if at == "tab-1":
+        return hc.get_overview_section(data, feature_list)
+    elif at == "tab-2":
+        return hc.get_second_section()
+    elif at== "tab-3":
+        return hc.get_third_section()
+    return html.P("This shouldn't ever be displayed...")
 
 
 # plot specs
