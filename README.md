@@ -6,10 +6,9 @@
 Mental Health in Tech Dashboard
 ===============================
 
-The Mental Health in Tech Dashboard dashboard will allow filtering
-between responses for those who indicate that they do have a mental
-health issue versus those that do not and comparing various variables to
-see how much they may interfere with their work.
+The Mental Health in Tech Dashboard dashboard visualizes a dataset consisting of survey questions and responses about various aspects of the mental health of tech workers. It shows both an overview of the survey responses as well as visualizations specifically relevant to HR domain experts, and allows for filtering based on the age and sex of survey respondents.
+
+The most recent version of the dashboard is available at the following link: https://mentalhealth-in-tech.herokuapp.com/
 
 Relevance
 ---------
