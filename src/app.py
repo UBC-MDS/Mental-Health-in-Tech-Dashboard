@@ -9,7 +9,10 @@ import plotly.graph_objects as go
 import numpy as np
 import html_components as hc
 
-app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
+app = dash.Dash(__name__,
+                title='Mental Health in Tech Dashboard',
+                external_stylesheets=[dbc.themes.BOOTSTRAP],
+                suppress_callback_exceptions=True)
 server = app.server
 
 data = pd.read_csv("data/processed/mental_health_clean.csv")
