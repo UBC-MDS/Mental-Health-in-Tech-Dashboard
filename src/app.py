@@ -1,27 +1,38 @@
-import dash
-import dash_html_components as html
-import dash_core_components as dcc
-from dash.dependencies import Input, Output
-import dash_bootstrap_components as dbc
-import pandas as pd
+from datetime import datetime
+
 import altair as alt
+import dash
+import dash_bootstrap_components as dbc
+import dash_html_components as html
+import pandas as pd
 import plotly.graph_objects as go
-import numpy as np
+from dash.dependencies import Input, Output
+
 import html_components as hc
 
-app = dash.Dash(
-    external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True
-)
+app = dash.Dash(__name__,
+                title='Mental Health in Tech Dashboard',
+                external_stylesheets=[dbc.themes.BOOTSTRAP],
+                suppress_callback_exceptions=True)
+
 server = app.server
 
 data = pd.read_csv("data/processed/mental_health_clean.csv")
 feature_list = pd.read_csv("data/processed/features_list.csv", encoding="utf-8")
 feature_list.set_index("variables", inplace=True)
 
+today = datetime.today()
+formated_date = today.strftime('%b %d, %Y')
 
 # app layout
 app.layout = dbc.Container(
-    [html.H1("Mental Health in Tech Dashboard"), html.Hr(), hc.get_tab_section(),]
+    [
+        html.H1("Mental Health in Tech Dashboard"),
+        html.Hr(),
+        hc.get_tab_section(),
+        html.Footer(f"The University of British Columbia - MDS students. Last time updated on {formated_date}. All rights "
+                    f"reserved.", style=hc.FOOTER_STYLE)
+    ]
 )
 
 
