@@ -189,23 +189,19 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     return viz.to_html()
 
 
-@app.callback(
-    Output("remote_barplot", "srcDoc"),
-    Input("age_slider", "value"),
-    Input("gender_selection", "value"),
-)
+@app.callback(Output("remote_barplot", "srcDoc"), Input("age_slider", "value"), Input("gender_selection", "value"))
 def plot_remote_work(age_slider=[15, 65], gender="all"):
-    replace_dic = {
-        "Maybe": "Mental Health Response:\nMaybe",
-        "Yes": "Mental Health Response:\nYes",
-        "No": "Mental Health Response:\nNo",
-    }
 
+    replace_dic = {
+        "Never": "Remote work: Never",
+        "Sometimes": "Remote work: Sometimes",
+        "Always": "Remote work: Always",
+    }
     # Remove null values
     remote_df = data[data["gender"].notnull()].copy()
-    remote_df["have_mental_helth_disorder"].replace(replace_dic, inplace=True)
+    remote_df["is_remote"].replace(replace_dic, inplace=True)
 
-    remote_df = remote_df.query("age >= @age_slider[0] & age <= @age_slider[1]")
+    remote_df = remote_df.query("@age_slider[0] <= age <= @age_slider[1]")
 
     # Default condition
     if gender == "all":
@@ -214,16 +210,15 @@ def plot_remote_work(age_slider=[15, 65], gender="all"):
                 remote_df,
                 title="Do employees that work remotely report fewer mental health issues?",
             )
-            .mark_bar()
+            .mark_bar(color="#a39fc9")
             .encode(
-                x=alt.X("is_remote", axis=None),
-                y=alt.Y("count()", title="Number of Responses"),
-                color=alt.Color("is_remote", legend=alt.Legend(title="Remote work")),
-                column=alt.Column("have_mental_helth_disorder", title=""),
+                x=alt.X("have_mental_helth_disorder", title="", axis=alt.Axis(labelAngle=-45), sort=['No', 'Maybe', 'Yes']),
+                y=alt.Y("count()", title="Number of Responses", scale=alt.Scale(domain=(0, 350))),
+                column=alt.Column("is_remote", title="", header=alt.Header(labelOrient="top"), sort = ["Remote work: Never", "Remote work: Sometimes", "Remote work: Always"]),
             )
-            .configure_header(labelFontSize=12, labelOrient="bottom")
+            .configure_header(labelFontSize=12)
             .properties(height=220, width=170)
-            .configure_title(fontSize=18, font="Courier", anchor="middle", color="gray")
+            .configure_title(fontSize=18, font="Courier", anchor="middle")
         )
     else:
         # Selected Filter condition
@@ -232,16 +227,15 @@ def plot_remote_work(age_slider=[15, 65], gender="all"):
                 remote_df[remote_df["gender"] == gender],
                 title="Do employees that work remotely report fewer mental health issues?",
             )
-            .mark_bar()
+            .mark_bar(color="#a39fc9")
             .encode(
-                x=alt.X("is_remote", axis=None),
-                y=alt.Y("count()", title="Number of Responses"),
-                color=alt.Color("is_remote", legend=alt.Legend(title="Remote work")),
-                column=alt.Column("have_mental_helth_disorder", title=""),
+                x=alt.X("have_mental_helth_disorder", title="", axis=alt.Axis(labelAngle=-45), sort=['No', 'Maybe', 'Yes']),
+                y=alt.Y("count()", title="Number of Responses", scale=alt.Scale(domain=(0, 350))),
+                column=alt.Column("is_remote", title="", header=alt.Header(labelOrient="top"), sort = ["Remote work: Never", "Remote work: Sometimes", "Remote work: Always"]),
             )
-            .configure_header(labelFontSize=12, labelOrient="bottom")
+            .configure_header(labelFontSize=12)
             .properties(height=220, width=170)
-            .configure_title(fontSize=18, font="Courier", anchor="middle", color="gray")
+            .configure_title(fontSize=18, font="Courier", anchor="middle")
         )
 
     return remote_plot.to_html()
