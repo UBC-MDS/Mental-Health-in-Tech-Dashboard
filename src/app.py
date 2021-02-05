@@ -55,7 +55,17 @@ def switch_tab(at):
 # plot specs
 @app.callback(Output("gender_barplot", "srcDoc"), Input("q_selection", "value"))
 def plot_gender_chart(q_selection="mental_health_benefits_employer"):
+    """Generates a bar plot grouped by gender and y-axis determined my provided variable name found in dataframe
 
+    Parameters
+    ----------
+    q_selection : str, optional
+        variable name to populate on y-axis, by default "mental_health_benefits_employer"
+
+    Returns
+    -------
+    chart in html format
+    """
     # dictionary for ordering values in plot
     order_dict = {
         "self_employed": ["Yes", "No", "No response"],
