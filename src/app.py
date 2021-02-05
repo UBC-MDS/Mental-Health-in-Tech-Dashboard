@@ -92,7 +92,7 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
         plot_data = plot_data.query("gender == @gender")
 
     # To generate the plots:
-    title1 = alt.Chart({"values": [{"text": "               When Treated"}]}
+    title1 = alt.Chart({"values": [{"text": "When Treated"}]}
     ).mark_text(dx= 100, size=12, font="Courier", color="black"
     ).encode(text="text:N")
     treated = alt.vconcat(title1, 
@@ -135,7 +135,9 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
         treated,
         untreated,
         title="Does your mental health issue interfere with your work?",
-    ).configure_title(fontSize=18, font="Courier", anchor="middle", color="black").configure_view(stroke=None).configure_concat(spacing=1)
+    ).configure_title(fontSize=18, font="Courier", anchor="middle", color="black"
+    ).configure_view(stroke=None
+    ).configure_concat(spacing=1)
     return viz.to_html()
 
 
