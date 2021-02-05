@@ -5,8 +5,8 @@ import dash
 import dash_bootstrap_components as dbc
 import dash_html_components as html
 import pandas as pd
-import plotly.graph_objects as go
 from dash.dependencies import Input, Output
+from plotly import graph_objects as go
 
 import html_components as hc
 
@@ -162,12 +162,12 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
                 axis=alt.Axis(title="Number of Responses"),
             ),
         )
-        .properties(height=200, width=200)
+            .properties(height=200, width=200)
     )
     untreated = (
         alt.Chart(plot_data, title="When Untreated")
-        .mark_bar(color="#a39fc9")
-        .encode(
+            .mark_bar(color="#a39fc9")
+            .encode(
             x=alt.X(
                 "work_interfere_not_treated",
                 sort=["Never", "Rarely", "Sometimes", "Often"],
@@ -179,7 +179,7 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
                 axis=alt.Axis(title=" "),
             ),
         )
-        .properties(height=200, width=200)
+            .properties(height=200, width=200)
     )
     viz = alt.hconcat(
         treated,
@@ -277,10 +277,10 @@ def build_graph(column_name, column_input):
     ]
     normalize_countries = (
         subset_data.groupby(["countries"])[column_name]
-        .value_counts(normalize=True)
-        .mul(100)
-        .unstack(column_name)
-        .reset_index()
+            .value_counts(normalize=True)
+            .mul(100)
+            .unstack(column_name)
+            .reset_index()
     )
     labels = normalize_countries["countries"]
     values = normalize_countries[column_input]
@@ -291,6 +291,7 @@ def build_graph(column_name, column_input):
         height=330,
         legend=dict(yanchor="bottom", y=0.99, xanchor="left", x=0.01),
         margin=dict(r=20, l=0, b=0, t=0),
+        legend_itemdoubleclick=False
     )
 
 
