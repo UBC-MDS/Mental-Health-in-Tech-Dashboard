@@ -5,8 +5,8 @@ import dash
 import dash_bootstrap_components as dbc
 import dash_html_components as html
 import pandas as pd
-import plotly.graph_objects as go
-from dash.dependencies import Input, Output
+from plotly import graph_objects as go
+from dash.dependencies import Input, Output, ClientsideFunction
 
 import html_components as hc
 
@@ -291,6 +291,7 @@ def build_graph(column_name, column_input):
         height=330,
         legend=dict(yanchor="bottom", y=0.99, xanchor="left", x=0.01),
         margin=dict(r=20, l=0, b=0, t=0),
+        legend_itemdoubleclick=False
     )
 
 
