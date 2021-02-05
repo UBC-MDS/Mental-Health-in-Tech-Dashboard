@@ -56,7 +56,7 @@ def get_overview_section(data, feature_list):
                                         "value": i,
                                     }
                                     for i in np.r_[
-                                        data.columns[0:14], data.columns[15:18]
+                                        data.columns[0:14]
                                     ]
                                 ],
                             ),
