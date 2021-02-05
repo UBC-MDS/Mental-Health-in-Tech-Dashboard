@@ -9,10 +9,12 @@ import plotly.graph_objects as go
 import numpy as np
 import html_components as hc
 
+
+
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 server = app.server
 
-data = pd.read_csv("data/processed/mental_health_clean.csv")
+data = pd.read_csv("data/processed/mental_health_clean_reformat.csv")
 feature_list = pd.read_csv("data/processed/features_list.csv", encoding="utf-8")
 feature_list.set_index("variables", inplace=True)
 
@@ -41,17 +43,32 @@ def switch_tab(at):
 # plot specs
 @app.callback(Output("gender_barplot", "srcDoc"), Input("q_selection", "value"))
 def plot_gender_chart(q_selection="mental_health_benefits_employer"):
+    
+        # dictionary for ordering values in plot
+    order_dict = {'self_employed':['Yes', 'No', 'No response'], 
+            'num_employees':['1-5', '6-25', '26-100', '26-100', '100-500', '500-1000', 'More than 1000', 'No response'], 
+            'tech_org': ['Yes', 'No', 'No response'],
+    'mental_health_benefits_healthcare': ['Yes', 'No', 'Not eligible for coverage',"I don't know", 'No response'], 
+            'mental_health_resources': ['Yes', 'No', "I don't know", 'No response'],
+    'mental_health_leave': ['Very easy', 'Somewhat easy', 'Neither easy nor difficult', 'Somewhat difficult',
+                            'Very difficult', "I don't know", "No response"],
+            'mental_disorder_discuss': ['Yes', 'Maybe', 'No', 'No response'],
+    'health_disorder_discuss': ['Yes', 'Maybe', 'No', 'No response'],
+            'discuss_coworker': ['Yes', 'Maybe', 'No', 'No response'],
+    'discuss_supervisor': ['Yes', 'Maybe', 'No', 'No response'], 
+            'online_resources': ['Yes, I know several', 'I know some', "No, I don't know any", 'No response'], 
+            'productivity': ['Yes', 'No', 'Unsure','Not applicable to me', 'No response'],
+    'productivity_percent': ['1-25%', '26-50%', '51-75%','76-100%', "No response"], 
+            'have_mental_helth_disorder' : ['Yes', 'Maybe', 'No', 'No response']}
+
     chart = (
-        alt.Chart(data, title=f"{feature_list.loc[q_selection]['variables2']}")
-        .mark_bar()
-        .encode(
-            alt.X("gender", title=""),
-            alt.Y("count()", title="Number of Responses"),
-            color=alt.Color("gender", legend=None),
-            column=alt.Column(q_selection, type="nominal", title=""),
-        ).configure_header(labelFontSize=10)
-            .configure_title(fontSize=18, font="Courier", anchor="middle", color="gray")
-            .properties(height=300, width=80)
+        alt.Chart(data, title=f"{feature_list.loc[q_selection]['variables2']}").transform_joinaggregate(
+        total = 'count(*)', groupby=['gender']).transform_calculate(
+        pct = '1/datum.total').mark_bar().encode(
+        alt.X('sum(pct):Q', axis=alt.Axis(format='%'), title = ''),
+        alt.Y(q_selection, title = '', sort=order_dict[q_selection]),
+        color=alt.value("#027b8e"),
+        column=alt.Column("gender", type="nominal", title="")).configure_header(labelFontSize=10).configure_title(fontSize=18, font="Courier", anchor="middle", color="gray").properties(height=300, width=200)
     )
     return chart.to_html()
 
