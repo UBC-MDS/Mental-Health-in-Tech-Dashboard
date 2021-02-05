@@ -30,10 +30,12 @@ def get_overview_section(data, feature_list):
                             dbc.CardLink(
                                 "Dataset",
                                 href="https://www.kaggle.com/osmi/mental-health-in-tech-2016",
+                                target="_blank",
                             ),
                             dbc.CardLink(
                                 "Github Source",
                                 href="https://github.com/UBC-MDS/Mental-Health-in-Tech-Dashboard",
+                                target="_blank",
                             ),
                         ]
                     ),
