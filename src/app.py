@@ -72,6 +72,16 @@ def plot_gender_chart(q_selection="mental_health_benefits_employer"):
     Input("gender_selection", "value"),
 )
 def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
+    '''
+    Function that makes the first visualization on the second tab of the dashboard 
+
+            Parameters:
+                    age_slider (int): the range of survey respondent ages
+                    gender (str): the gender of the survey respondent
+
+            Returns:
+                    viz: the html plot
+    '''
     plot_data = data
     # To apply filters to the plot data:
     plot_data = plot_data.query(
@@ -82,14 +92,17 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
         plot_data = plot_data.query("gender == @gender")
 
     # To generate the plots:
-    treated = (
-        alt.Chart(plot_data, title="When Treated")
+    title1 = alt.Chart({"values": [{"text": "               When Treated"}]}
+    ).mark_text(dx= 100, size=12, font="Courier", color="black"
+    ).encode(text="text:N")
+    treated = alt.vconcat(title1, 
+        alt.Chart(plot_data)
         .mark_bar(color="#a39fc9")
         .encode(
             x=alt.X(
                 "work_interfere_treated",
                 sort=["Never", "Rarely", "Sometimes", "Often"],
-                axis=alt.Axis(title=" "),
+                axis=alt.Axis(title=" ", labelAngle=-45,),
             ),
             y=alt.Y(
                 "count()",
@@ -99,14 +112,18 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
         )
         .properties(height=200, width=200)
     )
-    untreated = (
-        alt.Chart(plot_data, title="When Untreated")
+    title2 = alt.Chart({"values": [{"text": "When Untreated"}]}
+    ).mark_text(dx= 100, size=12, font="Courier",  color="black"
+    ).encode(text="text:N")
+
+    untreated = alt.vconcat(title2, 
+        alt.Chart(plot_data)
         .mark_bar(color="#a39fc9")
         .encode(
             x=alt.X(
                 "work_interfere_not_treated",
                 sort=["Never", "Rarely", "Sometimes", "Often"],
-                axis=alt.Axis(title=" "),
+                axis=alt.Axis(title=" ", labelAngle=-45,),
             ),
             y=alt.Y(
                 "count()", scale=alt.Scale(domain=(0, 550)), axis=alt.Axis(title=" "),
@@ -118,7 +135,7 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
         treated,
         untreated,
         title="Does your mental health issue interfere with your work?",
-    ).configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
+    ).configure_title(fontSize=18, font="Courier", anchor="middle", color="black").configure_view(stroke=None).configure_concat(spacing=1)
     return viz.to_html()
 
 
