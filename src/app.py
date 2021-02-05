@@ -117,19 +117,19 @@ def plot_gender_chart(q_selection="mental_health_benefits_employer"):
             data.fillna("No response"),
             title=f"{feature_list.loc[q_selection]['variables2']}",
         )
-        .transform_joinaggregate(total="count(*)", groupby=["gender"])
-        .transform_calculate(pct="1/datum.total")
-        .mark_bar()
-        .encode(
+            .transform_joinaggregate(total="count(*)", groupby=["gender"])
+            .transform_calculate(pct="1/datum.total")
+            .mark_bar()
+            .encode(
             alt.X("sum(pct):Q", axis=alt.Axis(format="%"), title=""),
             alt.Y(q_selection, title="", sort=order_dict[q_selection]),
             color=alt.value("#027b8e"),
             column=alt.Column("gender", type="nominal", title=""),
         )
-        .configure_header(labelFontSize=12)
-        .configure_axis(labelFontSize=12)
-        .configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
-        .properties(height=300, width=200)
+            .configure_header(labelFontSize=12)
+            .configure_axis(labelFontSize=12)
+            .configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
+            .properties(height=300, width=200)
     )
     return chart.to_html()
 
@@ -162,18 +162,18 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     # To generate the plots:
     title1 = (
         alt.Chart({"values": [{"text": "When Treated"}]})
-        .mark_text(dx=100, size=12, font="Courier", color="black")
-        .encode(text="text:N")
+            .mark_text(dx=100, size=12, font="Courier", color="black")
+            .encode(text="text:N")
     )
     treated = alt.vconcat(
         title1,
         alt.Chart(plot_data)
-        .mark_bar(color="#a39fc9")
-        .encode(
+            .mark_bar(color="#a39fc9")
+            .encode(
             x=alt.X(
                 "work_interfere_treated",
                 sort=["Never", "Rarely", "Sometimes", "Often"],
-                axis=alt.Axis(title=" ", labelAngle=-45,),
+                axis=alt.Axis(title=" ", labelAngle=-45, ),
             ),
             y=alt.Y(
                 "count()",
@@ -181,29 +181,29 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
                 axis=alt.Axis(title="Number of Responses"),
             ),
         )
-        .properties(height=200, width=200),
+            .properties(height=200, width=200),
     )
     title2 = (
         alt.Chart({"values": [{"text": "When Untreated"}]})
-        .mark_text(dx=100, size=12, font="Courier", color="black")
-        .encode(text="text:N")
+            .mark_text(dx=100, size=12, font="Courier", color="black")
+            .encode(text="text:N")
     )
 
     untreated = alt.vconcat(
         title2,
         alt.Chart(plot_data)
-        .mark_bar(color="#a39fc9")
-        .encode(
+            .mark_bar(color="#a39fc9")
+            .encode(
             x=alt.X(
                 "work_interfere_not_treated",
                 sort=["Never", "Rarely", "Sometimes", "Often"],
-                axis=alt.Axis(title=" ", labelAngle=-45,),
+                axis=alt.Axis(title=" ", labelAngle=-45, ),
             ),
             y=alt.Y(
                 "count()", scale=alt.Scale(domain=(0, 550)), axis=alt.Axis(title=" "),
             ),
         )
-        .properties(height=200, width=200),
+            .properties(height=200, width=200),
     )
     viz = (
         alt.hconcat(
@@ -211,9 +211,9 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
             untreated,
             title="Does your mental health issue interfere with your work?",
         )
-        .configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
-        .configure_view(stroke=None)
-        .configure_concat(spacing=1)
+            .configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
+            .configure_view(stroke=None)
+            .configure_concat(spacing=1)
     )
     return viz.to_html()
 
@@ -224,7 +224,6 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     Input("gender_selection", "value"),
 )
 def plot_remote_work(age_slider=[15, 65], gender="all"):
-
     replace_dic = {
         "Never": "Remote work: Never",
         "Sometimes": "Remote work: Sometimes",
@@ -243,8 +242,8 @@ def plot_remote_work(age_slider=[15, 65], gender="all"):
                 remote_df,
                 title="Do employees that work remotely report fewer mental health issues?",
             )
-            .mark_bar(color="#a39fc9")
-            .encode(
+                .mark_bar(color="#a39fc9")
+                .encode(
                 x=alt.X(
                     "have_mental_helth_disorder",
                     title="",
@@ -267,9 +266,9 @@ def plot_remote_work(age_slider=[15, 65], gender="all"):
                     ],
                 ),
             )
-            .configure_header(labelFontSize=12)
-            .properties(height=220, width=170)
-            .configure_title(fontSize=18, font="Courier", anchor="middle")
+                .configure_header(labelFontSize=12)
+                .properties(height=220, width=170)
+                .configure_title(fontSize=18, font="Courier", anchor="middle")
         )
     else:
         # Selected Filter condition
@@ -278,8 +277,8 @@ def plot_remote_work(age_slider=[15, 65], gender="all"):
                 remote_df[remote_df["gender"] == gender],
                 title="Do employees that work remotely report fewer mental health issues?",
             )
-            .mark_bar(color="#a39fc9")
-            .encode(
+                .mark_bar(color="#a39fc9")
+                .encode(
                 x=alt.X(
                     "have_mental_helth_disorder",
                     title="",
@@ -302,15 +301,17 @@ def plot_remote_work(age_slider=[15, 65], gender="all"):
                     ],
                 ),
             )
-            .configure_header(labelFontSize=12)
-            .properties(height=220, width=170)
-            .configure_title(fontSize=18, font="Courier", anchor="middle")
+                .configure_header(labelFontSize=12)
+                .properties(height=220, width=170)
+                .configure_title(fontSize=18, font="Courier", anchor="middle")
         )
 
     return remote_plot.to_html()
 
 
 COUNTRIES = ["United States of America", "United Kingdom", "Canada", "Germany"]
+
+donut_chart_colors = ['#ccb22b', '#84d0c0', '#8175aa', '#027b8e', '#959c9e']
 
 
 @app.callback(
@@ -346,21 +347,22 @@ def build_graph(column_name, column_input):
     ]
     normalize_countries = (
         subset_data.groupby(["countries"])[column_name]
-        .value_counts(normalize=True)
-        .mul(100)
-        .unstack(column_name)
-        .reset_index()
+            .value_counts(normalize=True)
+            .mul(100)
+            .unstack(column_name)
+            .reset_index()
     )
     labels = normalize_countries["countries"]
     values = normalize_countries[column_input]
-    fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.44)])
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.44, sort=False,
+                                 marker={'colors': donut_chart_colors})])
     return fig.update_layout(
         autosize=False,
         width=330,
         height=330,
         legend=dict(yanchor="bottom", y=0.99, xanchor="left", x=0.01),
         margin=dict(r=20, l=0, b=0, t=0),
-        legend_itemdoubleclick=False,
+        legend_itemdoubleclick=False
     )
 
 
