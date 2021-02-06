@@ -4,16 +4,16 @@ As we mentioned in our proposal document, we wanted to make the “Mental Health
 
 The overview section consists of a visualization that allows the user to select a question from the survey and quickly visualize the responses. The HR questions section includes plots that each answer a specific question HR domain experts may have about the ways mental health issues affect work productivity. Finally, the benefits section offers insights into the ways the benefits offered by an employer affect the mental health of their employees. In addition to these plots we have also implemented filters that allow users to filter the data included in the visualizations according to factors like the age and sex of survey respondents so that they can make the visualizations more closely align with the factors that exist in their workplaces (for example, with the current filters an HR domain expert could tune the visualizations to be more relevant to their predominantly male and older workforce).
 
-# Feedback from our Peers and TA's
+# Feedback From Our Peers and TA's
 
 The most consistently mentioned pieces of feedback we received throughout the development of the dashboard were that our visualizations were not communicating as clearly as we would have liked due to issues like the sort order of bars in a bar chart and the choice to use colour coded legends. Additionally, our peers told us that from the landing page of our dashboard it was somewhat unclear what data they were seeing and how they could get more information about what we've done for this project. To address this feedback we have we have implemented separation of sections by tabs, consistent with our original sketch. This helps provide clarity in which interactions correspond to which plot as well as to allow the user to focus on one theme at a time. Apart from that, we have made improvements to the individual visualizations based on feedback. This includes aligning the colour palette across visualizations and simplifying plots by foregoing our original format of using legends and instead using axis labels to communicate categories in bar charts. We have also added a Quick Info card to the landing page of the dashboard which contains information about both the dataset used and the source for the project.
 
 We were happy to read that users generally felt our dashboard was intuitive in its usage, which was an important consideration as our target audience (HR domain experts) require an easy to use interface.
 
-# Items not implemented
+# Items Not Implemented
 
 Two items that were not implemented from our original sketch were a correlation plot of features and a filter by year. It was decided to not go forward with these two items after a further review of the data. The correlation plot was not implemented as the majority of the data was categorical, therefore, this type of visualization would not be insightful. The filter by year was originally supposed to provide comparison of survey questions between years so that the HR professional would be able to track changes in responses over time; however, it was found that the survey questions over the different years were not consistent, and so this was not comparable.
 
-# Note on our choice of programming language
+# Choice of Programming Language
 
 After considering both R and Python, we have chosen to proceed with Python for our final implementation of the dashboard. We preferred Python since the deployments were easier and faster, with no need to use docker during the deployment process which allowed us to iterate more quickly. Additionally, we found the documentation and support for Python with bootstrap components to be superior to those from R, possibly since the R version is still in beta.
