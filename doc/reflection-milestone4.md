@@ -1,0 +1,15 @@
+# What We Have Implemented
+
+As we mentioned in our proposal document, we wanted to make the “Mental Health in Tech Workers” dashboard in such a way that it could provide an overview of the survey data used for the dashboard but also include additional information relevant to our target audience. So far we have included these two sections as well as a breakdown of employee benefits and their effects on mental health in the Python dashboard we released this week as part of milestone 4. 
+
+The overview section consists of a visualization that allows the user to select a question from the survey and quickly visualize the responses. The HR questions section includes plots that each answer a specific question HR domain experts may have about the ways mental health issues affect work productivity. Finally, the benefits section offers insights into the ways the benefits offered by an employer affect the mental health of their employees. In addition to these plots we have also implemented filters that allow users to filter the data included in the visualizations according to factors like the age and sex of survey respondents so that they can make the visualizations more closely align with the factors that exist in their workplaces (for example, with the current filters an HR domain expert could tune the visualizations to be more relevant to their predominantly male and older workforce).
+
+# Feedback from our Peers and TA's
+
+The most consistently mentioned pieces of feedback we received throughout the development of the dashboard were that our visualizations were not communicating as clearly as we would have liked due to issues like the sort order of bars in a bar chart and the choice to use colour coded legends. Additionally, our peers told us that from the landing page of our dashboard it was somewhat unclear what data they were seeing and how they could get more information about what we've done for this project. To address this feedback we have been working to improve our visualizations and have implemented all the suggested changes including using axis labels to communicate categories in bar charts and aligning the colour pallette accross visualizations. We have also added a Quick Info card to the landing page of the dashboard which contains information about both the dataset used and the source for the project.
+
+We were happy to read that users generally felt our dashboard was intuitive in its usage, which was an important consideration as our target audience (HR domain experts) require an easy to use interface.
+
+# Note on our choice of programming language
+
+After considering both R and Python, we have chosen to proceed with Python for our final implementation of the dashboard. We preferred Python since the deployments were easier and faster, with no need to use docker during the deployment process which allowed us to iterate more quickly. Additionally, we found the documentation and support for Python with bootstrap components to be superior to those from R, possibly since the R version is still in beta.
