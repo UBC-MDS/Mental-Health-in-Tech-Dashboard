@@ -5,7 +5,6 @@ import dash_html_components as html
 import pandas as pd
 from dash.dependencies import Input, Output
 from plotly import graph_objects as go
-
 import html_components as hc
 
 app = dash.Dash(
