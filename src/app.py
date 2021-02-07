@@ -18,27 +18,63 @@ app = dash.Dash(
 )
 
 server = app.server
+PLOTLY_LOGO = "assets/img/1111512.png"
 
 data = pd.read_csv("data/processed/mental_health_clean_reformat.csv")
 feature_list = pd.read_csv("data/processed/features_list.csv", encoding="utf-8")
 feature_list.set_index("variables", inplace=True)
 
 today = datetime.today()
-formated_date = today.strftime("%b %d, %Y")
+formatted_date = today.strftime("%b %d, %Y")
 
-# app layout
-app.layout = dbc.Container(
+
+def helvetica():
+    font = "Helvetica"
+
+    return {
+        "config": {
+            "title": {'font': font},
+            "axis": {
+                "labelFont": font,
+                "titleFont": font
+            }
+        }
+    }
+
+
+alt.themes.register('Helvetica', helvetica)
+alt.themes.enable('Helvetica')
+
+navbar = dbc.NavbarSimple(
+    html.A(
+        dbc.Row(
+            dbc.Col(html.Img(src=PLOTLY_LOGO, height="70px")),
+        )
+    ),
+    brand="Mental Health in Tech Dashboard",
+    brand_href="#",
+    color="#3c3d58",
+    dark=True,
+)
+
+container = dbc.Container(
     [
-        html.H1("Mental Health in Tech Dashboard"),
-        html.Hr(),
+        # html.H1("Mental Health in Tech Dashboard"),
+        html.Br(),
         hc.get_tab_section(),
         html.Footer(
-            [f"(C) Copyright UBC-MDS students. Last time updated on {formated_date}",
-             html.Br(),
-             f"Authors: Chirag Rank, Fatime Selimi, Mike Lynch, Selma Duric. All rights reserved."],
+            [f"(C) Copyright UBC-MDS students: Chirag Rank, Fatime Selimi, Mike Lynch, Selma Duric. ",
+             f"Last time updated on {formatted_date}."],
             style=hc.FOOTER_STYLE,
         ),
     ]
+)
+
+# app layout
+app.layout = html.Div([
+    navbar,
+    container],
+    style={"backgroundColor": "#eeeeef"}
 )
 
 
@@ -130,7 +166,7 @@ def plot_gender_chart(q_selection="mental_health_benefits_employer"):
             .configure_header(labelFontSize=12)
             .configure_axis(labelFontSize=12)
             .configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
-            .properties(height=300, width=200)
+            .properties(height=300, width=200, background='#eeeeef')
     )
     return chart.to_html()
 
@@ -186,8 +222,7 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
                 scale=alt.Scale(domain=(0, 550)),
                 axis=alt.Axis(title="Number of Responses"),
             ),
-        )
-            .properties(height=200, width=200),
+        ).properties(height=200, width=200),
     )
     title2 = (
         alt.Chart({"values": [{"text": "When Untreated"}]})
@@ -208,19 +243,17 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
             y=alt.Y(
                 "count()", scale=alt.Scale(domain=(0, 550)), axis=alt.Axis(title=" "),
             ),
-        )
-            .properties(height=200, width=200),
+        ).properties(height=200, width=200),
     )
     viz = (
         alt.hconcat(
             treated,
             untreated,
             title="Does your mental health issue interfere with your work?",
-        )
-            .configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
+        ).configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
             .configure_view(stroke=None)
             .configure_concat(spacing=1)
-    )
+    ).properties(background='#eeeeef')
     return viz.to_html()
 
 
@@ -288,7 +321,7 @@ def plot_remote_work(age_slider=[15, 65], gender="all"):
                 ),
             )
                 .configure_header(labelFontSize=12)
-                .properties(height=220, width=170)
+                .properties(height=220, width=170, background='#eeeeef')
                 .configure_title(fontSize=18, font="Courier", anchor="middle")
         )
     else:
@@ -323,7 +356,7 @@ def plot_remote_work(age_slider=[15, 65], gender="all"):
                 ),
             )
                 .configure_header(labelFontSize=12)
-                .properties(height=220, width=170)
+                .properties(height=220, width=170, background='#eeeeef')
                 .configure_title(fontSize=18, font="Courier", anchor="middle")
         )
 
@@ -432,13 +465,19 @@ def build_graph(column_name, column_input):
     values = normalize_countries[column_input]
     fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.44, sort=False,
                                  marker={'colors': donut_chart_colors})])
+
+    fig.layout.plot_bgcolor = '#eeeeef'
     return fig.update_layout(
         autosize=False,
-        width=330,
-        height=330,
-        legend=dict(yanchor="bottom", y=0.99, xanchor="left", x=0.01),
-        margin=dict(r=20, l=0, b=0, t=0),
-        legend_itemdoubleclick=False
+        width=550,
+        height=250,
+        legend=dict(yanchor="bottom", x=0.9, y=0.1, xanchor="left"),
+        margin=dict(r=0, l=0, b=30, t=20),
+        legend_itemdoubleclick=False,
+        plot_bgcolor='#eeeeef',
+        paper_bgcolor='#eeeeef',
+        font_family="Helvetica"
+
     )
 
 

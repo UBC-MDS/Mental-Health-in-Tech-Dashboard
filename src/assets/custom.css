@@ -1,0 +1,7 @@
+*{
+  font-family: Helvetica;
+}
+
+.nav-link, .nav-link:hover {
+    color: #495057;
+}
