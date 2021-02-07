@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
@@ -14,6 +16,11 @@ FOOTER_STYLE = {
     "color": "white",
     "fontSize": "small",
 }
+
+PLOTLY_LOGO = "assets/img/1111512.png"
+
+today = datetime.today()
+formatted_date = today.strftime("%b %d, %Y")
 
 
 def get_overview_section(data, feature_list):
@@ -297,5 +304,26 @@ def get_tab_section():
             html.Div(id="tab-content"),
         ]
     )
-
     return tab_section
+
+
+navbar = dbc.NavbarSimple(
+    html.Img(src=PLOTLY_LOGO, height="70px"),
+    brand="Mental Health in Tech Dashboard",
+    brand_href="#",
+    color="#3c3d58",
+    dark=True,
+)
+
+container = dbc.Container(
+    [
+        # html.H1("Mental Health in Tech Dashboard"),
+        html.Br(),
+        get_tab_section(),
+        html.Footer(
+            [f"(C) Copyright UBC-MDS students: Chirag Rank, Fatime Selimi, Mike Lynch, Selma Duric. ",
+             f"Last time updated on {formatted_date}."],
+            style=FOOTER_STYLE,
+        ),
+    ]
+)

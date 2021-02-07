@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import altair as alt
 import dash
 import dash_bootstrap_components as dbc
@@ -18,14 +16,10 @@ app = dash.Dash(
 )
 
 server = app.server
-PLOTLY_LOGO = "assets/img/1111512.png"
 
 data = pd.read_csv("data/processed/mental_health_clean_reformat.csv")
 feature_list = pd.read_csv("data/processed/features_list.csv", encoding="utf-8")
 feature_list.set_index("variables", inplace=True)
-
-today = datetime.today()
-formatted_date = today.strftime("%b %d, %Y")
 
 
 def helvetica():
@@ -45,35 +39,10 @@ def helvetica():
 alt.themes.register('Helvetica', helvetica)
 alt.themes.enable('Helvetica')
 
-navbar = dbc.NavbarSimple(
-    html.A(
-        dbc.Row(
-            dbc.Col(html.Img(src=PLOTLY_LOGO, height="70px")),
-        )
-    ),
-    brand="Mental Health in Tech Dashboard",
-    brand_href="#",
-    color="#3c3d58",
-    dark=True,
-)
-
-container = dbc.Container(
-    [
-        # html.H1("Mental Health in Tech Dashboard"),
-        html.Br(),
-        hc.get_tab_section(),
-        html.Footer(
-            [f"(C) Copyright UBC-MDS students: Chirag Rank, Fatime Selimi, Mike Lynch, Selma Duric. ",
-             f"Last time updated on {formatted_date}."],
-            style=hc.FOOTER_STYLE,
-        ),
-    ]
-)
-
 # app layout
 app.layout = html.Div([
-    navbar,
-    container],
+    hc.navbar,
+    hc.container],
     style={"backgroundColor": "#eeeeef"}
 )
 
