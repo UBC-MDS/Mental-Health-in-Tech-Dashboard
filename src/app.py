@@ -142,7 +142,7 @@ def plot_gender_chart(q_selection="mental_health_benefits_employer"):
         )
             .configure_header(labelFontSize=12)
             .configure_axis(labelFontSize=12)
-            .configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
+            .configure_title(fontSize=18, anchor="middle", color="black")
             .properties(height=300, width=200, background='#eeeeef')
     )
     return chart.to_html()
@@ -181,7 +181,7 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     # To generate the plots:
     title1 = (
         alt.Chart({"values": [{"text": "When Treated"}]})
-            .mark_text(dx=100, size=12, font="Courier", color="black")
+            .mark_text(dx=100, size=12, color="black")
             .encode(text="text:N")
     )
     treated = alt.vconcat(
@@ -203,7 +203,7 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     )
     title2 = (
         alt.Chart({"values": [{"text": "When Untreated"}]})
-            .mark_text(dx=100, size=12, font="Courier", color="black")
+            .mark_text(dx=100, size=12, color="black")
             .encode(text="text:N")
     )
 
@@ -227,7 +227,7 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
             treated,
             untreated,
             title="Does your mental health issue interfere with your work?",
-        ).configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
+        ).configure_title(fontSize=18, anchor="middle", color="black")
             .configure_view(stroke=None)
             .configure_concat(spacing=1)
     ).properties(background='#eeeeef')
@@ -299,7 +299,7 @@ def plot_remote_work(age_slider=[15, 65], gender="all"):
             )
                 .configure_header(labelFontSize=12)
                 .properties(height=220, width=170, background='#eeeeef')
-                .configure_title(fontSize=18, font="Courier", anchor="middle")
+                .configure_title(fontSize=18, anchor="middle")
         )
     else:
         # Selected Filter condition
@@ -334,7 +334,7 @@ def plot_remote_work(age_slider=[15, 65], gender="all"):
             )
                 .configure_header(labelFontSize=12)
                 .properties(height=220, width=170, background='#eeeeef')
-                .configure_title(fontSize=18, font="Courier", anchor="middle")
+                .configure_title(fontSize=18, anchor="middle")
         )
 
     return remote_plot.to_html()
