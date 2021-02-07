@@ -1,3 +1,10 @@
+## Welcome!
+
+Welcome! :tada:  Mirësevini! :star2:  स्वागत हे :confetti_ball:  Dobrodošli! :balloon::balloon::balloon:
+
+Thank you for visiting the Mental Health in Tech app project repository.
+
+
 -   [Mental Health in Tech Dashboard](#mental-health-in-tech-dashboard)
     -   [Relevance](#relevance)
     -   [Overview](#overview)
@@ -45,11 +52,10 @@ the mental health condition of employees and the relation to those
 variables, namely the benefits and care options an employer provides for
 their employees.
 
-Below is simplified mock-up of Mental Health in Tech Dashboard
+Below is a GIF of our Mental Health in Tech Dashboard
 
-![App sketch](src/assets/img/wireframe1.png)
+![App sketch](src/assets/img/ezgif.com-gif-maker.gif)
 
-![App sketch](src/assets/img/wireframe2.png)
 
 License
 =======
