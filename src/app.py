@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import altair as alt
 import dash
 import dash_bootstrap_components as dbc
@@ -23,21 +21,37 @@ data = pd.read_csv("data/processed/mental_health_clean_reformat.csv")
 feature_list = pd.read_csv("data/processed/features_list.csv", encoding="utf-8")
 feature_list.set_index("variables", inplace=True)
 
-today = datetime.today()
-formated_date = today.strftime("%b %d, %Y")
+
+def Helvetica():
+    font = "Helvetica"
+
+    return {
+        "config": {
+            "title": {'font': font},
+            "axis": {
+                "labelFont": font,
+                "titleFont": font
+            },
+            "header": {
+                "labelFont": font,
+                "titleFont": font
+            },
+            "legend": {
+                "labelFont": font,
+                "titleFont": font
+            }
+        }
+    }
+
+
+alt.themes.register('Helvetica', Helvetica)
+alt.themes.enable('Helvetica')
 
 # app layout
-app.layout = dbc.Container(
-    [
-        html.H1("Mental Health in Tech Dashboard"),
-        html.Hr(),
-        hc.get_tab_section(),
-        html.Footer(
-            f"The University of British Columbia - MDS students. Last time updated on {formated_date}. All rights "
-            f"reserved.",
-            style=hc.FOOTER_STYLE,
-        ),
-    ]
+app.layout = html.Div([
+    hc.navbar,
+    hc.container],
+    style={"backgroundColor": "#eeeeef"}
 )
 
 
@@ -129,7 +143,7 @@ def plot_gender_chart(q_selection="mental_health_benefits_employer"):
             .configure_header(labelFontSize=12)
             .configure_axis(labelFontSize=12)
             .configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
-            .properties(height=300, width=200)
+            .properties(height=300, width=200, background='#eeeeef')
     )
     return chart.to_html()
 
@@ -143,12 +157,17 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     """
     Function that makes the first visualization on the second tab of the dashboard 
 
-            Parameters:
-                    age_slider (int): the range of survey respondent ages
-                    gender (str): the gender of the survey respondent
+    Parameters:
+    ----------
+    age_slider (int):
+        the range of survey respondent ages
+    gender (str):
+        the gender of the survey respondent
 
-            Returns:
-                    viz: the html plot
+    Returns:
+    ----------
+    viz
+        the html plot
     """
     plot_data = data
     # To apply filters to the plot data:
@@ -180,8 +199,7 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
                 scale=alt.Scale(domain=(0, 550)),
                 axis=alt.Axis(title="Number of Responses"),
             ),
-        )
-            .properties(height=200, width=200),
+        ).properties(height=200, width=200),
     )
     title2 = (
         alt.Chart({"values": [{"text": "When Untreated"}]})
@@ -202,19 +220,17 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
             y=alt.Y(
                 "count()", scale=alt.Scale(domain=(0, 550)), axis=alt.Axis(title=" "),
             ),
-        )
-            .properties(height=200, width=200),
+        ).properties(height=200, width=200),
     )
     viz = (
         alt.hconcat(
             treated,
             untreated,
             title="Does your mental health issue interfere with your work?",
-        )
-            .configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
+        ).configure_title(fontSize=18, font="Courier", anchor="middle", color="black")
             .configure_view(stroke=None)
             .configure_concat(spacing=1)
-    )
+    ).properties(background='#eeeeef')
     return viz.to_html()
 
 
@@ -224,6 +240,21 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     Input("gender_selection", "value"),
 )
 def plot_remote_work(age_slider=[15, 65], gender="all"):
+    """
+    Function that makes the second visualization on the second tab of the dashboard
+
+    Parameters:
+    ----------
+    age_slider (int):
+        the range of survey respondent ages
+    gender (str):
+        the gender of the survey respondent
+
+    Returns:
+    ----------
+    viz
+        the html plot
+    """
     replace_dic = {
         "Never": "Remote work: Never",
         "Sometimes": "Remote work: Sometimes",
@@ -267,7 +298,7 @@ def plot_remote_work(age_slider=[15, 65], gender="all"):
                 ),
             )
                 .configure_header(labelFontSize=12)
-                .properties(height=220, width=170)
+                .properties(height=220, width=170, background='#eeeeef')
                 .configure_title(fontSize=18, font="Courier", anchor="middle")
         )
     else:
@@ -302,7 +333,7 @@ def plot_remote_work(age_slider=[15, 65], gender="all"):
                 ),
             )
                 .configure_header(labelFontSize=12)
-                .properties(height=220, width=170)
+                .properties(height=220, width=170, background='#eeeeef')
                 .configure_title(fontSize=18, font="Courier", anchor="middle")
         )
 
@@ -315,9 +346,23 @@ donut_chart_colors = ['#ccb22b', '#84d0c0', '#8175aa', '#027b8e', '#959c9e']
 
 
 @app.callback(
-    Output("formal_discuss_donutplot", "figure"), Input("formal_discuss_radio", "value")
+    Output("formal_discuss_donutplot", "figure"),
+    Input("formal_discuss_radio", "value")
 )
 def formal_discuss_donut_chart(formal_discuss="No"):
+    """
+    Function that makes the first donut chart visualization on the third tab of the dashboard
+
+    Parameters:
+    ----------
+    formal_discuss (str):
+        the value of the input of formal_discuss from callback
+
+    Returns:
+    ----------
+    viz
+        the html plot
+    """
     column_name = "formal_discuss"
     return build_graph(column_name, formal_discuss)
 
@@ -327,6 +372,19 @@ def formal_discuss_donut_chart(formal_discuss="No"):
     Input("mental_health_benefits_employer_radio", "value"),
 )
 def mental_health_benefits_employer_donut_chart(mental_health_benefits_employer="No"):
+    """
+    Function that makes the second donut chart visualization on the third tab of the dashboard
+
+    Parameters:
+    ----------
+    mental_health_benefits_employer (str):
+        the value of the input of mental_health_benefits_employer from callback
+
+    Returns:
+    ----------
+    viz
+        the html plot
+    """
     column_name = "mental_health_benefits_employer"
     return build_graph(column_name, mental_health_benefits_employer)
 
@@ -336,11 +394,39 @@ def mental_health_benefits_employer_donut_chart(mental_health_benefits_employer=
     Input("mental_health_leave_radio", "value"),
 )
 def mental_health_leave_donut_chart(mental_health_leave=""):
+    """
+    Function that makes the third donut chart visualization on the third tab of the dashboard
+
+    Parameters:
+    ----------
+    mental_health_leave (str):
+        the value of the input of mental_health_leave from callback
+
+    Returns:
+    ----------
+    viz
+        the html plot
+    """
     column_name = "mental_health_leave"
     return build_graph(column_name, mental_health_leave)
 
 
 def build_graph(column_name, column_input):
+    """
+    Helper function that build a donut chart
+
+    Parameters:
+    ----------
+    column_name (str):
+        the name of the column to create the plot for
+    column_input (str):
+        the value of the input from the callback function
+
+    Returns:
+    ----------
+    viz
+        a plotly plot
+    """
     subset_data = data[[column_name, "country"]].copy().dropna()
     subset_data["countries"] = [
         x if x in COUNTRIES else "Other" for x in subset_data["country"]
@@ -356,13 +442,19 @@ def build_graph(column_name, column_input):
     values = normalize_countries[column_input]
     fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.44, sort=False,
                                  marker={'colors': donut_chart_colors})])
+
+    fig.layout.plot_bgcolor = '#eeeeef'
     return fig.update_layout(
         autosize=False,
-        width=330,
-        height=330,
-        legend=dict(yanchor="bottom", y=0.99, xanchor="left", x=0.01),
-        margin=dict(r=20, l=0, b=0, t=0),
-        legend_itemdoubleclick=False
+        width=550,
+        height=250,
+        legend=dict(yanchor="bottom", x=0.9, y=0.1, xanchor="left"),
+        margin=dict(r=0, l=0, b=30, t=20),
+        legend_itemdoubleclick=False,
+        plot_bgcolor='#eeeeef',
+        paper_bgcolor='#eeeeef',
+        font_family="Helvetica"
+
     )
 
 

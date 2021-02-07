@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
@@ -8,41 +10,55 @@ FOOTER_STYLE = {
     "bottom": 0,
     "left": 0,
     "right": 0,
-    "height": "30px",
-    "padding": "3px 1rem",
-    "backgroundColor": "lightgrey",
+    "height": "25px",
+    "padding": "3px 0 0 5px",
+    "backgroundColor": "#3c3d58",
+    "color": "white",
+    "fontSize": "small",
 }
+
+PLOTLY_LOGO = "assets/img/1111512.png"
+
+today = datetime.today()
+formatted_date = today.strftime("%b %d, %Y")
 
 
 def get_overview_section(data, feature_list):
     plot1 = html.Div(
         [
-            html.Hr(),
+            html.Br(),
             dbc.Row(
-                dbc.Card(
-                    dbc.CardBody(
-                        [
-                            html.H4("Quick Info", className="card-title"),
-                            html.P(
-                                "The Mental Health in Tech Dashboard dashboard visualizes a dataset consisting of survey questions and responses about various aspects of the mental health of tech workers. It shows both an overview of the survey responses as well as additional visualizations specifically relevant to HR domain experts. The dataset used and github source are available in the links below.",
-                                className="card-text",
-                            ),
-                            dbc.CardLink(
-                                "Dataset",
-                                href="https://www.kaggle.com/osmi/mental-health-in-tech-2016",
-                                target="_blank",
-                            ),
-                            dbc.CardLink(
-                                "Github Source",
-                                href="https://github.com/UBC-MDS/Mental-Health-in-Tech-Dashboard",
-                                target="_blank",
-                            ),
-                        ]
-                    ),
-                )
+                dbc.Col([
+                    dbc.Card(
+                        dbc.CardBody(
+                            [
+                                html.H4("Quick Info", className="card-title"),
+                                html.P(
+                                    "The Mental Health in Tech Dashboard dashboard visualizes a dataset consisting of survey questions and responses about various aspects of the mental health of tech workers. It shows both an overview of the survey responses as well as additional visualizations specifically relevant to HR domain experts. The dataset used and github source are available in the links below.",
+                                    className="card-text",
+                                ),
+                                dbc.CardLink(
+                                    "Dataset",
+                                    href="https://www.kaggle.com/osmi/mental-health-in-tech-2016",
+                                    target="_blank",
+                                ),
+                                dbc.CardLink(
+                                    "Github Source",
+                                    href="https://github.com/UBC-MDS/Mental-Health-in-Tech-Dashboard",
+                                    target="_blank",
+                                ),
+                            ]
+                        ),
+                    )
+                ]),
             ),
             html.Hr(),
-            dbc.Row([html.H3("Overview Section:")]),
+            dbc.Row(
+                dbc.Col([
+                    html.H3("Data overview for different survey questions"),
+                    html.Br()
+                ]),
+            ),
             dbc.Row(
                 [
                     dbc.Col(
@@ -81,11 +97,15 @@ def get_overview_section(data, feature_list):
 
 
 def get_second_section():
-
     section2 = html.Div(
         [
             html.Hr(),
-            dbc.Row([html.H3("HR Questions Section:")]),
+            dbc.Row(
+                dbc.Col([
+                    html.H3("Human Resources questions for different groups of respondents"),
+                    html.Br()
+                ]),
+            ),
             dbc.Row(
                 [
                     dbc.Col(
@@ -100,10 +120,7 @@ def get_second_section():
                                     {"label": "Others", "value": "Other"},
                                 ],
                                 value="all",
-                                inputStyle={
-                                    "margin-left": "10px",
-                                    "margin-right": "2px",
-                                },
+                                inputStyle={"marginLeft": "20px", "marginRight": "5px"},
                                 labelStyle={"display": "block"},
                             ),
                             html.Br(),
@@ -132,9 +149,8 @@ def get_second_section():
                         ],
                         md=3,
                         style={
-                            "background-color": "#e6e6e6",
                             "padding": 15,
-                            "border-radius": 6,
+                            "borderRadius": 6,
                         },
                     ),
                     dbc.Col(
@@ -170,7 +186,14 @@ def get_third_section():
         [
             html.Hr(),
             dbc.Row(
+                dbc.Col([
+                    html.H3("Employee benefits and wellness programs in different countries"),
+                    html.Br()
+                ]),
+            ),
+            dbc.Row(
                 [
+
                     dbc.Col(
                         [
                             html.P(
@@ -188,8 +211,13 @@ def get_third_section():
                                 labelStyle={"display": "block"},
                             ),
                         ],
-                        md=4,
+                        md=6,
                     ),
+                    dbc.Col([dcc.Graph(id="formal_discuss_donutplot", ), ], md=6, )
+                ]
+            ),
+            dbc.Row(
+                [
                     dbc.Col(
                         [
                             html.P(
@@ -210,8 +238,15 @@ def get_third_section():
                                 labelStyle={"display": "block"},
                             ),
                         ],
-                        md=4,
+                        md=6,
                     ),
+                    dbc.Col(
+                        [dcc.Graph(id="mental_health_benefits_employer_donutplot"), ],
+                        md=6,
+                    ),
+                ]),
+            dbc.Row(
+                [
                     dbc.Col(
                         [
                             html.P(
@@ -243,19 +278,10 @@ def get_third_section():
                                 labelStyle={"display": "block"},
                             ),
                         ],
-                        md=4,
+                        md=6,
                     ),
-                ]
-            ),
-            dbc.Row(
-                [
-                    dbc.Col([dcc.Graph(id="formal_discuss_donutplot",),], md=4,),
-                    dbc.Col(
-                        [dcc.Graph(id="mental_health_benefits_employer_donutplot"),],
-                        md=4,
-                    ),
-                    dbc.Col([dcc.Graph(id="mental_health_leave_donutplot"),], md=4,),
-                ]
+                    dbc.Col([dcc.Graph(id="mental_health_leave_donutplot"), ], md=6, ),
+                ],
             ),
         ]
     )
@@ -270,7 +296,7 @@ def get_tab_section():
                 [
                     dbc.Tab(label="Overview", tab_id="tab-1"),
                     dbc.Tab(label="HR Questions", tab_id="tab-2"),
-                    dbc.Tab(label="Benefits", tab_id="tab-3"),
+                    dbc.Tab(label="Employee Benefits Questions", tab_id="tab-3"),
                 ],
                 id="tabs",
                 active_tab="tab-1",
@@ -278,5 +304,26 @@ def get_tab_section():
             html.Div(id="tab-content"),
         ]
     )
-
     return tab_section
+
+
+navbar = dbc.NavbarSimple(
+    html.Img(src=PLOTLY_LOGO, height="70px"),
+    brand="Mental Health in Tech Dashboard",
+    brand_href="#",
+    color="#3c3d58",
+    dark=True,
+)
+
+container = dbc.Container(
+    [
+        # html.H1("Mental Health in Tech Dashboard"),
+        html.Br(),
+        get_tab_section(),
+        html.Footer(
+            [f"(C) Copyright UBC-MDS students: Chirag Rank, Fatime Selimi, Mike Lynch, Selma Duric. ",
+             f"Last time updated on {formatted_date}."],
+            style=FOOTER_STYLE,
+        ),
+    ]
+)
