@@ -22,7 +22,7 @@ feature_list = pd.read_csv("data/processed/features_list.csv", encoding="utf-8")
 feature_list.set_index("variables", inplace=True)
 
 
-def helvetica():
+def Helvetica():
     font = "Helvetica"
 
     return {
@@ -31,12 +31,20 @@ def helvetica():
             "axis": {
                 "labelFont": font,
                 "titleFont": font
+            },
+            "header": {
+                "labelFont": font,
+                "titleFont": font
+            },
+            "legend": {
+                "labelFont": font,
+                "titleFont": font
             }
         }
     }
 
 
-alt.themes.register('Helvetica', helvetica)
+alt.themes.register('Helvetica', Helvetica)
 alt.themes.enable('Helvetica')
 
 # app layout
