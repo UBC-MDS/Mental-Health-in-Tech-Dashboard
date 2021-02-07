@@ -34,8 +34,8 @@ app.layout = dbc.Container(
         hc.get_tab_section(),
         html.Footer(
             [f"(C) Copyright UBC-MDS students. Last time updated on {formated_date}",
-            html.Br(),
-            f"Authors: Chirag Rank, Fatime Selimi, Mike Lynch, Selma Duric. All rights reserved."],
+             html.Br(),
+             f"Authors: Chirag Rank, Fatime Selimi, Mike Lynch, Selma Duric. All rights reserved."],
             style=hc.FOOTER_STYLE,
         ),
     ]
@@ -144,12 +144,17 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     """
     Function that makes the first visualization on the second tab of the dashboard 
 
-            Parameters:
-                    age_slider (int): the range of survey respondent ages
-                    gender (str): the gender of the survey respondent
+    Parameters:
+    ----------
+    age_slider (int):
+        the range of survey respondent ages
+    gender (str):
+        the gender of the survey respondent
 
-            Returns:
-                    viz: the html plot
+    Returns:
+    ----------
+    viz
+        the html plot
     """
     plot_data = data
     # To apply filters to the plot data:
@@ -225,6 +230,21 @@ def plot_work_interfere_bars(age_slider=[15, 65], gender="all"):
     Input("gender_selection", "value"),
 )
 def plot_remote_work(age_slider=[15, 65], gender="all"):
+    """
+    Function that makes the second visualization on the second tab of the dashboard
+
+    Parameters:
+    ----------
+    age_slider (int):
+        the range of survey respondent ages
+    gender (str):
+        the gender of the survey respondent
+
+    Returns:
+    ----------
+    viz
+        the html plot
+    """
     replace_dic = {
         "Never": "Remote work: Never",
         "Sometimes": "Remote work: Sometimes",
@@ -316,9 +336,23 @@ donut_chart_colors = ['#ccb22b', '#84d0c0', '#8175aa', '#027b8e', '#959c9e']
 
 
 @app.callback(
-    Output("formal_discuss_donutplot", "figure"), Input("formal_discuss_radio", "value")
+    Output("formal_discuss_donutplot", "figure"),
+    Input("formal_discuss_radio", "value")
 )
 def formal_discuss_donut_chart(formal_discuss="No"):
+    """
+    Function that makes the first donut chart visualization on the third tab of the dashboard
+
+    Parameters:
+    ----------
+    formal_discuss (str):
+        the value of the input of formal_discuss from callback
+
+    Returns:
+    ----------
+    viz
+        the html plot
+    """
     column_name = "formal_discuss"
     return build_graph(column_name, formal_discuss)
 
@@ -328,6 +362,19 @@ def formal_discuss_donut_chart(formal_discuss="No"):
     Input("mental_health_benefits_employer_radio", "value"),
 )
 def mental_health_benefits_employer_donut_chart(mental_health_benefits_employer="No"):
+    """
+    Function that makes the second donut chart visualization on the third tab of the dashboard
+
+    Parameters:
+    ----------
+    mental_health_benefits_employer (str):
+        the value of the input of mental_health_benefits_employer from callback
+
+    Returns:
+    ----------
+    viz
+        the html plot
+    """
     column_name = "mental_health_benefits_employer"
     return build_graph(column_name, mental_health_benefits_employer)
 
@@ -337,11 +384,39 @@ def mental_health_benefits_employer_donut_chart(mental_health_benefits_employer=
     Input("mental_health_leave_radio", "value"),
 )
 def mental_health_leave_donut_chart(mental_health_leave=""):
+    """
+    Function that makes the third donut chart visualization on the third tab of the dashboard
+
+    Parameters:
+    ----------
+    mental_health_leave (str):
+        the value of the input of mental_health_leave from callback
+
+    Returns:
+    ----------
+    viz
+        the html plot
+    """
     column_name = "mental_health_leave"
     return build_graph(column_name, mental_health_leave)
 
 
 def build_graph(column_name, column_input):
+    """
+    Helper function that build a donut chart
+
+    Parameters:
+    ----------
+    column_name (str):
+        the name of the column to create the plot for
+    column_input (str):
+        the value of the input from the callback function
+
+    Returns:
+    ----------
+    viz
+        a plotly plot
+    """
     subset_data = data[[column_name, "country"]].copy().dropna()
     subset_data["countries"] = [
         x if x in COUNTRIES else "Other" for x in subset_data["country"]
