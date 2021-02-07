@@ -33,8 +33,9 @@ app.layout = dbc.Container(
         html.Hr(),
         hc.get_tab_section(),
         html.Footer(
-            f"The University of British Columbia - MDS students. Last time updated on {formated_date}. All rights "
-            f"reserved.",
+            [f"(C) Copyright UBC-MDS students. Last time updated on {formated_date}",
+            html.Br(),
+            f"Authors: Chirag Rank, Fatime Selimi, Mike Lynch, Selma Duric. All rights reserved."],
             style=hc.FOOTER_STYLE,
         ),
     ]

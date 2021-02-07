@@ -8,7 +8,7 @@ FOOTER_STYLE = {
     "bottom": 0,
     "left": 0,
     "right": 0,
-    "height": "30px",
+    "height": "60px",
     "padding": "3px 1rem",
     "backgroundColor": "lightgrey",
 }
