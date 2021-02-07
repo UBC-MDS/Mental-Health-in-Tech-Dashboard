@@ -1,3 +1,10 @@
+## Welcome!
+
+Welcome! :tada:  Mirësevini! :star2:  स्वागत हे :confetti_ball:  Dobrodošli! :balloon::balloon::balloon:
+
+Thank you for visiting the Mental Health in Tech app project repository.
+
+
 -   [Mental Health in Tech Dashboard](#mental-health-in-tech-dashboard)
     -   [Relevance](#relevance)
     -   [Overview](#overview)
@@ -36,20 +43,18 @@ survey questions. Moreover, the app has radio buttons which allow HR
 professionals to filter between the respondents pertaining to a
 particular sex, i.e. female, male, or other; it also has one additional
 dropdown list which allows HR professionals to filter between the
-companies that provide wellness program for their employees
-\[wellness\_program\], or if the company makes it easy to apply for a
-medical leave for a mental health condition \[leave\], or if the company
-provides care options for mental health care \[care\_options\]. These
+companies that provide wellness program for their employees, or if the company makes it easy to apply for a
+medical leave for a mental health condition, or if the company
+provides care options for mental health care. These
 widgets in the app will allow HR professionals to compare and contrast
 the mental health condition of employees and the relation to those
 variables, namely the benefits and care options an employer provides for
 their employees.
 
-Below is simplified mock-up of Mental Health in Tech Dashboard
+Below is a GIF of our Mental Health in Tech Dashboard
 
-![App sketch](src/assets/img/wireframe1.png)
+![App sketch](src/assets/img/ezgif.com-gif-maker.gif)
 
-![App sketch](src/assets/img/wireframe2.png)
 
 License
 =======
