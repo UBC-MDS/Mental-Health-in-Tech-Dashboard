@@ -19,7 +19,7 @@ FOOTER_STYLE = {
 
 PLOTLY_LOGO = "assets/img/1111512.png"
 
-today = datetime.today()
+today = datetime.now()
 formatted_date = today.strftime("%b %d, %Y")
 
 
